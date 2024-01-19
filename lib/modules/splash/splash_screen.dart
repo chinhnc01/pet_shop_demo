@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pet_shop/modules/splash/splash_controller.dart';
 import 'package:pet_shop/widgets/base/base.dart';
-import 'package:pet_shop/widgets/text_custom.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
