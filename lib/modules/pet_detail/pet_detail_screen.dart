@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'size_config.dart';
-import 'app_styles.dart';
+import 'package:pet_shop/app_styles.dart';
+import 'package:pet_shop/size_config.dart';
 
-class PetDetailPage extends StatelessWidget {
-  const PetDetailPage({Key? key}) : super(key: key);
+class PetDetailScreen extends StatefulWidget {
+  const PetDetailScreen({Key? key}) : super(key: key);
+  static const String routeName = '/pet_detail';
 
+  @override
+  State<PetDetailScreen> createState() => _PetDetailScreenState();
+}
+
+class _PetDetailScreenState extends State<PetDetailScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
