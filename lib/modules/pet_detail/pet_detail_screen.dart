@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/size_config.dart';
 
@@ -79,7 +81,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          debugPrint('Tapped');
+                          Get.back();
                         },
                         child: SvgPicture.asset(
                           'assets/arrow_left_icon.svg',
@@ -136,9 +138,10 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                     onTap: () {
                       debugPrint('Favorite Button Tapped');
                     },
-                    child: SvgPicture.asset(
-                      'assets/favorite_icon.svg',
-                      width: 30,
+                    child: const Icon(
+                      LucideIcons.shoppingCart,
+                      size: 32,
+                      color: kBoxShadowColor,
                     ),
                   ),
                 ],

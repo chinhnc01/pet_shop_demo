@@ -143,17 +143,18 @@ class _FlashTabBarItem extends StatelessWidget {
               duration: animationDuration,
               alignment: isSelected ? Alignment.topCenter : Alignment.center,
               child: AnimatedOpacity(
-                  opacity: isSelected ? 1.0 : 1.0,
-                  duration: animationDuration,
-                  child: IconTheme(
-                    data: IconThemeData(
-                        size: iconSize,
-                        color: isSelected
-                            ? item.activeColor?.withOpacity(1) ??
-                                Get.theme.colorScheme.onBackground
-                            : item.inactiveColor),
-                    child: item.icon,
-                  )),
+                opacity: isSelected ? 1.0 : 1.0,
+                duration: animationDuration,
+                child: IconTheme(
+                  data: IconThemeData(
+                      size: iconSize,
+                      color: isSelected
+                          ? item.activeColor?.withOpacity(1) ??
+                              Get.theme.colorScheme.onBackground
+                          : item.inactiveColor),
+                  child: item.icon,
+                ),
+              ),
             ),
             AnimatedPositioned(
               curve: animationCurve,
@@ -177,21 +178,22 @@ class _FlashTabBarItem extends StatelessWidget {
               ),
             ),
             AnimatedAlign(
-                alignment:
-                    isSelected ? Alignment.center : Alignment.bottomCenter,
+              alignment: isSelected ? Alignment.center : Alignment.bottomCenter,
+              duration: animationDuration,
+              curve: animationCurve,
+              child: AnimatedOpacity(
+                opacity: isSelected ? 1.0 : 0.0,
                 duration: animationDuration,
-                curve: animationCurve,
-                child: AnimatedOpacity(
-                    opacity: isSelected ? 1.0 : 0.0,
-                    duration: animationDuration,
-                    child: DefaultTextStyle.merge(
-                      style: TextStyle(
-                        color: item.activeColor ??
-                            Get.theme.colorScheme.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      child: item.title,
-                    ))),
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(
+                    color:
+                        item.activeColor ?? Get.theme.colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  child: item.title,
+                ),
+              ),
+            ),
             Positioned(
                 bottom: 0,
                 child: CustomPaint(
@@ -206,20 +208,21 @@ class _FlashTabBarItem extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: AnimatedOpacity(
-                  duration: animationDuration,
-                  opacity: isSelected ? 1.0 : 0.0,
-                  child: Container(
-                    width: double.infinity,
-                    height: 1.5,
-                    alignment: Alignment.bottomCenter,
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: item.activeColor ??
-                          Get.theme.colorScheme.onBackground,
-                      borderRadius: BorderRadius.circular(2.5),
-                    ),
-                    // child: item.icon,
-                  )),
+                duration: animationDuration,
+                opacity: isSelected ? 1.0 : 0.0,
+                child: Container(
+                  width: double.infinity,
+                  height: 1.5,
+                  alignment: Alignment.bottomCenter,
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color:
+                        item.activeColor ?? Get.theme.colorScheme.onBackground,
+                    borderRadius: BorderRadius.circular(2.5),
+                  ),
+                  // child: item.icon,
+                ),
+              ),
             )
           ],
         ));

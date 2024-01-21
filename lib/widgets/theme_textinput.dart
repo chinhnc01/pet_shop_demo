@@ -9,7 +9,7 @@ InputDecoration textFieldInputStyle(
     label: textBodyMedium(text: label, color: Colors.grey),
     floatingLabelBehavior: FloatingLabelBehavior.always,
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
     ),
     focusedBorder: OutlineInputBorder(

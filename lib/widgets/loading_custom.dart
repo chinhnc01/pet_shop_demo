@@ -19,19 +19,21 @@ class LoadingCustom extends StatelessWidget {
           children: [
             Text(
               'Calories',
-              style: josefinSans(
+              style: mulish(
                   fontSize: 54, color: Get.theme.colorScheme.onBackground),
             ),
             Container(
-                // color: Colors.cyan,
-                margin: EdgeInsets.zero,
-                height: 20,
-                child: Lottie.asset(
-                    !ThemeService().loadThemeFromBox()
-                        ? 'assets/animate/line_loading.json'
-                        : 'assets/animate/line_loading_w.json',
-                    width: Get.width,
-                    fit: BoxFit.fill)),
+              // color: Colors.cyan,
+              margin: EdgeInsets.zero,
+              height: 20,
+              child: Lottie.asset(
+                !ThemeService().loadThemeFromBox()
+                    ? 'assets/animate/line_loading.json'
+                    : 'assets/animate/line_loading_w.json',
+                width: Get.width,
+                fit: BoxFit.fill,
+              ),
+            ),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/home/home_controller.dart';
+import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/size_config.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -48,31 +48,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: kPaddingHorizontal,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/nav_icon.svg',
-                  width: 18,
-                ),
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: kRed,
-                  backgroundImage: NetworkImage(
-                    'https://cdn3d.iconscout.com/3d/premium/thumb/boy-avatar-6299533-5187865.png',
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 19,
-          ),
           SizedBox(
             height: 200,
             child: Stack(
@@ -110,7 +85,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             width: 6,
                           ),
                           Text(
-                            'Osama',
+                            'Sip_huong',
                             style: kSourceSansProMedium.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 5.5,
                               color: kBlack,
@@ -201,15 +176,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 80,
-                        width: 150,
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(kBorderRadiusList),
-                          child: Image.asset(
-                            'assets/images/${dogs[index]}',
-                            fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(PetDetailScreen.routeName);
+                        },
+                        child: SizedBox(
+                          height: 80,
+                          width: 150,
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(kBorderRadiusList),
+                            child: Image.asset(
+                              'assets/images/${dogs[index]}',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -230,7 +210,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'BANANA',
+                                'DOGDOG',
                                 style: kSourceSansProBold.copyWith(
                                   fontSize:
                                       SizeConfig.blockSizeHorizontal! * 2.5,
@@ -370,7 +350,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'BANANA',
+                                'CATCAT',
                                 style: kSourceSansProBold.copyWith(
                                   fontSize:
                                       SizeConfig.blockSizeHorizontal! * 2.5,
