@@ -16,7 +16,7 @@ class PetDetailScreen extends StatefulWidget {
 class _PetDetailScreenState extends State<PetDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    // SizeConfig().init(context);
 
     return Scaffold(
       backgroundColor: kWhite,
@@ -83,9 +83,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                         onTap: () {
                           Get.back();
                         },
-                        child: SvgPicture.asset(
-                          'assets/arrow_left_icon.svg',
-                        ),
+                        child: const Icon(LucideIcons.arrowLeft),
                       ),
                     ),
                   )

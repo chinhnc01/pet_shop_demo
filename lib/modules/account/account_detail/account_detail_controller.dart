@@ -1,22 +1,14 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class AllPetController extends GetxController
+class AccountDetailController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
   int selectItemScreen = 0;
-  late TextEditingController searchTE;
-
   @override
   Future<void> onInit() async {
     changeUI();
-    initData();
     super.onInit();
-  }
-
-  initData() {
-    searchTE = TextEditingController();
   }
 
   changeUI() {

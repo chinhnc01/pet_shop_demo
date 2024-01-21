@@ -7,6 +7,8 @@ import 'package:getwidget/components/toggle/gf_toggle.dart';
 import 'package:getwidget/types/gf_toggle_type.dart';
 import 'package:lottie/lottie.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:pet_shop/app_styles.dart';
+import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 
 Widget searchBar(
@@ -30,7 +32,7 @@ Widget searchBar(
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
-        hintText: "Tìm kiếm ...",
+        hintText: "Search...",
         hintStyle: TextStyle(
           color: Colors.grey,
           fontSize: 12,
@@ -44,60 +46,67 @@ Widget searchBar(
   );
 }
 
-//avater tròn
-Widget avatarImage(
-    {required String url,
-    double? radius,
-    bool isFileImage = false,
-    Uint8List? imageF}) {
+Widget avatarImage({
+  required String url,
+  double? radius,
+  bool isFileImage = false,
+  Uint8List? imageF,
+}) {
   bool loadImageError = false;
-  return StatefulBuilder(builder: (context, setState) {
-    return !isFileImage
-        ? CircleAvatar(
-            radius: radius,
-            backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(url),
-            onBackgroundImageError:
-                (dynamic exception, StackTrace? stackTrace) {
-              setState(() {
-                loadImageError = true;
-              });
-            },
-            child: loadImageError
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset('assets/images/image_notfound.jpg'))
-                : null)
-        : CircleAvatar(
-            radius: radius,
-            backgroundColor: Colors.transparent,
-            backgroundImage:
-                const AssetImage('assets/images/image_notfound.jpg'),
-            child: ClipOval(
-              child: SizedBox.fromSize(
-                size: Size.fromRadius(radius ?? 20), // Image radius
-                child: (imageF == null)
-                    ? Image.asset(
-                        'assets/images/image_notfound.jpg',
-                        fit: BoxFit.cover,
-                      )
-                    : Image.memory(
-                        imageF,
-                        errorBuilder: (buildContext, object, stackTrace) =>
-                            Image.asset(
-                          'assets/images/image_notfound.jpg',
+  return StatefulBuilder(
+    builder: (context, setState) {
+      return !isFileImage
+          ? CircleAvatar(
+              radius: radius,
+              backgroundColor: Colors.transparent,
+              backgroundImage: NetworkImage(url),
+              onBackgroundImageError:
+                  (dynamic exception, StackTrace? stackTrace) {
+                setState(
+                  () {
+                    loadImageError = true;
+                  },
+                );
+              },
+              child: loadImageError
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset('assets/images/image_notfound.png'))
+                  : null,
+            )
+          : CircleAvatar(
+              radius: radius,
+              backgroundColor: Colors.transparent,
+              backgroundImage:
+                  const AssetImage('assets/images/image_notfound.png'),
+              child: ClipOval(
+                child: SizedBox.fromSize(
+                  size: Size.fromRadius(radius ?? 20), // Image radius
+                  child: (imageF == null)
+                      ? Image.asset(
+                          'assets/images/image_notfound.png',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.memory(
+                          imageF,
+                          errorBuilder: (buildContext, object, stackTrace) =>
+                              Image.asset(
+                            'assets/images/image_notfound.png',
+                            fit: BoxFit.cover,
+                          ),
                           fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
-                      ),
+                ),
               ),
-            ));
-  });
+            );
+    },
+  );
 }
 
 Widget buttonSetting({
   required IconData iconStart,
   required IconData iconEnd,
+  bool isHasIconEnd = false,
   Function? onTap,
   required String title,
   bool isToggle = false,
@@ -127,23 +136,26 @@ Widget buttonSetting({
               Icon(
                 iconStart,
                 size: 4 * 6,
+                color: kOrange,
               ),
               textTitleSmall(text: title),
             ],
           ),
-          isToggle
-              ? GFToggle(
-                  onChanged: onChangeToggle!,
-                  value: valToggle,
-                  disabledTrackColor:
-                      disabledTrackColor ?? Colors.grey.shade300,
-                  enabledTrackColor: enabledTrackColor ?? Colors.black,
-                  type: GFToggleType.ios,
-                )
-              : Icon(
-                  iconEnd,
-                  size: 4 * 5,
-                ),
+          isHasIconEnd
+              ? isToggle
+                  ? GFToggle(
+                      onChanged: onChangeToggle!,
+                      value: valToggle,
+                      disabledTrackColor:
+                          disabledTrackColor ?? Colors.grey.shade300,
+                      enabledTrackColor: enabledTrackColor ?? Colors.black,
+                      type: GFToggleType.ios,
+                    )
+                  : Icon(
+                      iconEnd,
+                      size: 4 * 5,
+                    )
+              : const Icon(null),
         ],
       ),
     ),
@@ -179,6 +191,53 @@ Widget noData({required Function inReload}) {
           )
         ],
       ),
+    ),
+  );
+}
+
+AppBar appBarCustom(
+    {required String title,
+    bool bigTitle = true,
+    bool isCenterTitle = true,
+    bool isBorder = true,
+    double marginTop = 3.0,
+    Widget? leadingAppBar,
+    List<Widget>? actionsAppBar,
+    bool isPadding = true,
+    MainAxisAlignment? mainAxisAlignment,
+    Widget? leading,
+    List<Widget>? actions}) {
+  return AppBar(
+    titleSpacing: 0,
+    centerTitle: isCenterTitle,
+    automaticallyImplyLeading: false,
+    backgroundColor: Get.theme.colorScheme.background,
+    surfaceTintColor: Get.theme.colorScheme.background,
+    leading: leadingAppBar,
+    actions: actionsAppBar,
+    title: Container(
+      width: Get.width,
+      padding: const EdgeInsets.only(top: 4, bottom: 3),
+      decoration: BoxDecoration(
+          color: Get.theme.colorScheme.background,
+          border: Border(
+              bottom: isBorder
+                  ? BorderSide(width: 1, color: Colors.grey.shade400)
+                  : BorderSide.none)),
+      child: Container(
+          margin: EdgeInsets.only(top: marginTop),
+          padding: isPadding ? alignment_20_8() : EdgeInsets.zero,
+          child: Row(
+            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (leading != null) leading,
+              bigTitle
+                  ? textTitleLarge(text: title)
+                  : textTitleMedium(text: title),
+              if (actions != null) ...actions
+            ],
+          )),
     ),
   );
 }

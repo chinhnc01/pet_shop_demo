@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pet_shop/modules/account/account_binding.dart';
+import 'package:pet_shop/modules/account/account_detail/account_detail_binding.dart';
+import 'package:pet_shop/modules/account/account_detail/account_detail_screen.dart';
 import 'package:pet_shop/modules/account/account_screen.dart';
 import 'package:pet_shop/modules/all_pet/all_pet_binding.dart';
 import 'package:pet_shop/modules/all_pet/all_pet_screen.dart';
@@ -45,6 +47,12 @@ List<GetPage> routes = [
     name: AccountScreen.routeName,
     page: () => const AccountScreen(),
     binding: AccountBinding(),
+    transition: Transition.fade,
+  ),
+  GetPage(
+    name: AccountDetailScreen.routeName,
+    page: () => const AccountDetailScreen(),
+    binding: AccountDetailBinding(),
     transition: Transition.fade,
   ),
   GetPage(
