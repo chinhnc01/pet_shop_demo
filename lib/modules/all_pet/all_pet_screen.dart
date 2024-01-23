@@ -86,15 +86,16 @@ class _AllPetScreenState extends State<AllPetScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(.5),
-              offset: const Offset(3, 2),
-              blurRadius: 7,
-            )
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.5),
+            offset: const Offset(3, 2),
+            blurRadius: 7,
+          )
+        ],
+      ),
       child: Column(
         children: [
           Padding(
