@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBNA8nJioe4pccbLzIEFqQIR2ByAAmjqZ0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>77684496214</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.chinhnc.petShop</string>
+	<key>PROJECT_ID</key>
+	<string>pet-shop-demo-48c60</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pet-shop-demo-48c60.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:77684496214:ios:257ccab47d94d90c26a8f7</string>
+</dict>
+</plist>

@@ -4,7 +4,6 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/auth/login/login_controller.dart';
 import 'package:pet_shop/modules/auth/signup/signup_screen.dart';
-import 'package:pet_shop/modules/home/home_screen.dart';
 import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 import 'package:pet_shop/widgets/theme_textinput.dart';
@@ -21,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginController loginController = Get.put(LoginController());
 
   GlobalKey<FormState> keyForm1 = GlobalKey<FormState>(debugLabel: '_FormL1');
-  int selectedIndex = 0;
   bool passwordVisible = true;
 
   @override
@@ -71,20 +69,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: loginController.emailTE,
                         style: mulish(fontSize: 16),
                         keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        validator: loginController.validateEmail,
                         decoration: textFieldInputStyle(
                           label: 'Email',
                         ),
-                        maxLines: 1,
-                        validator: loginController.validateEmail,
                       ),
                       const SizedBox(
                         height: 4 * 6,
                       ),
                       TextFormField(
                         onTap: () {},
-                        controller: loginController.passWTE,
+                        controller: loginController.passTE,
                         obscureText: passwordVisible,
                         style: mulish(fontSize: 16),
+                        validator: loginController.validateString,
                         decoration: textFieldInputStyle(
                           label: 'Mật khẩu',
                           suffixIcon: InkWell(
@@ -104,7 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        validator: loginController.validateString,
                       ),
                     ],
                   ),
@@ -118,9 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: Get.width * 0.5,
                         height: Get.height * 0.07,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Get.offAndToNamed(HomeScreen.routeName);
-                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -134,6 +129,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Đăng nhập',
                             color: kBoxShadowColor,
                           ),
+                          onPressed: () {
+                            if (keyForm1.currentState?.validate() ?? false) {
+                              loginController.signInUsingEmailPassword(
+                                email: loginController.emailTE.text,
+                                password: loginController.passTE.text,
+                              );
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(

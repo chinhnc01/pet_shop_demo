@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pet_shop/modules/auth/login/login_screen.dart';
 import 'package:pet_shop/modules/home/home_screen.dart';
 
 class SplashController extends GetxController
@@ -24,7 +25,7 @@ class SplashController extends GetxController
     Future.delayed(
       const Duration(seconds: 4),
       () {
-        Get.offAndToNamed(HomeScreen.routeName);
+        Get.offAndToNamed(LoginScreen.routeName);
       },
     );
   }

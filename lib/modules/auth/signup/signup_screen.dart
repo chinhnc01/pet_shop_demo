@@ -66,15 +66,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 4 * 16,
                       ),
                       TextFormField(
-                        onTap: () {},
                         controller: signupController.nameTE,
                         style: mulish(fontSize: 16),
-                        // keyboardType: TextInputType.emailAddress,
                         decoration: textFieldInputStyle(
                           label: 'Họ tên',
                         ),
                         maxLines: 1,
                         validator: signupController.validateEmail,
+                        onTap: () {},
                       ),
                       const SizedBox(
                         height: 4 * 6,
@@ -95,7 +94,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       TextFormField(
                         onTap: () {},
-                        controller: signupController.passWTE,
+                        controller: signupController.passTE,
                         obscureText: passwordVisible,
                         style: mulish(fontSize: 16),
                         decoration: textFieldInputStyle(
@@ -124,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       TextFormField(
                         onTap: () {},
-                        controller: signupController.passWTE,
+                        controller: signupController.passTE,
                         obscureText: passwordVisible,
                         style: mulish(fontSize: 16),
                         decoration: textFieldInputStyle(
@@ -160,7 +159,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         width: Get.width * 0.5,
                         height: Get.height * 0.07,
                         child: ElevatedButton(
-                          onPressed: () {},
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -174,6 +172,15 @@ class _SignupScreenState extends State<SignupScreen> {
                             text: 'Đăng ký',
                             color: kBoxShadowColor,
                           ),
+                          onPressed: () {
+                            if (keyForm1.currentState?.validate() ?? false) {
+                              signupController.registerUsingEmailPassword(
+                                email: signupController.emailTE.text,
+                                name: signupController.nameTE.text,
+                                password: signupController.passTE.text,
+                              );
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
