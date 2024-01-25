@@ -3,6 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
+import 'package:pet_shop/data/models/pet.dart';
+import 'package:pet_shop/modules/cart/cart_controller.dart';
+import 'package:pet_shop/modules/pet_detail/pet_detail_controller.dart';
 import 'package:pet_shop/size_config.dart';
 
 class PetDetailScreen extends StatefulWidget {
@@ -14,6 +17,9 @@ class PetDetailScreen extends StatefulWidget {
 }
 
 class _PetDetailScreenState extends State<PetDetailScreen> {
+  PetDetailController petDetailController = Get.put(PetDetailController());
+  Pet? pet = Get.arguments;
+  CartController cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     // SizeConfig().init(context);
@@ -24,6 +30,13 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           debugPrint('Add to cart button pressed!');
+          cartController.createCartList(
+            petId: pet!.id,
+            petImage: pet!.image,
+            quantity: 1,
+            petName: pet!.name,
+            petPrice: pet!.price,
+          );
         },
         label: Text(
           'Add to cart',
@@ -52,8 +65,8 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
               height: SizeConfig.blockSizeVertical! * 50,
               child: Stack(
                 children: [
-                  Image.asset(
-                    'assets/images/dog_marly_cover.png',
+                  Image.network(
+                    pet!.image,
                     height: SizeConfig.blockSizeVertical! * 60,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -104,7 +117,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Marly',
+                        pet!.name,
                         style: kSourceSansProBold.copyWith(
                           fontSize: SizeConfig.blockSizeHorizontal! * 6,
                           color: kGrey,
@@ -115,17 +128,13 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/pin_point_icon.svg',
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
                           Text(
-                            'Arizona, U.S.',
+                            '\$ ${pet!.price.toString()}',
+                            // 'Arizona, U.S.',
                             style: kSourceSansProregular.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 4,
-                              color: kLighterGrey,
+                              color: kOrange,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -135,6 +144,13 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                   GestureDetector(
                     onTap: () {
                       debugPrint('Favorite Button Tapped');
+                      cartController.createCartList(
+                        petId: pet!.id,
+                        petImage: pet!.image,
+                        quantity: 1,
+                        petName: pet!.name,
+                        petPrice: pet!.price,
+                      );
                     },
                     child: const Icon(
                       LucideIcons.shoppingCart,
@@ -167,7 +183,9 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                     child: Column(
                       children: [
                         Text(
-                          '6 Months',
+                          // '6 Months',
+                          ((DateTime.now()).difference(pet!.birth).inDays / 30)
+                              .toStringAsFixed(0),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: kSourceSansProBold.copyWith(
@@ -176,7 +194,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                           ),
                         ),
                         Text(
-                          'Age',
+                          'Months',
                           style: kSourceSansProregular.copyWith(
                             fontSize: SizeConfig.blockSizeHorizontal! * 3,
                             color: kLighterGrey,
@@ -197,7 +215,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'Brown',
+                          pet!.color,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: kSourceSansProBold.copyWith(
@@ -227,7 +245,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                     child: Column(
                       children: [
                         Text(
-                          '6KG',
+                          '${pet!.weight} KG',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: kSourceSansProBold.copyWith(
@@ -269,7 +287,7 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
               padding:
                   const EdgeInsets.symmetric(horizontal: kPaddingHorizontal),
               child: Text(
-                'Remember this sweet face? Several years ago Charlie came into our care when their person died. These two easy-going Lhasa Apso mixes quickly to settle into foster care. Living with kids, cats, and other dogs, they were the perfect guests, and once their vetting and evaluation was done this bonded pair found their home with a kind couple.\n\nRemember this sweet face? Several years ago Charlie came into our care when their person died. These two easy-going Lhasa Apso mixes quickly to settle into foster care. Living with kids, cats, and other dogs, they were the perfect guests, and once their vetting and evaluation was done this bonded pair found their home with a kind couple.\n\nRemember this sweet face? Several years ago Charlie came into our care when their person died. These two easy-going Lhasa Apso mixes quickly to settle into foster care. Living with kids, cats, and other dogs, they were the perfect guests, and once their vetting and evaluation was done this bonded pair found their home with a kind couple.',
+                pet!.des,
                 style: kSourceSansProSemibold.copyWith(
                   color: kGrey,
                   fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
@@ -279,72 +297,72 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
             const SizedBox(
               height: kPaddingHorizontal,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-              ),
-              child: Text(
-                'Photo Album',
-                style: kSourceSansProregular.copyWith(
-                  color: kLighterGrey,
-                  fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kPaddingHorizontal,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 55,
-                    width: SizeConfig.blockSizeHorizontal! * 25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/dog_marly01.png',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 55,
-                    width: SizeConfig.blockSizeHorizontal! * 25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        6,
-                      ),
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/dog_marly02.png',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 55,
-                    width: SizeConfig.blockSizeHorizontal! * 25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/dog_marly03.png',
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: kPaddingHorizontal,
+            //   ),
+            //   child: Text(
+            //     'Photo Album',
+            //     style: kSourceSansProregular.copyWith(
+            //       color: kLighterGrey,
+            //       fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 12,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: kPaddingHorizontal,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Container(
+            //         height: 55,
+            //         width: SizeConfig.blockSizeHorizontal! * 25,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(6),
+            //           image: const DecorationImage(
+            //             fit: BoxFit.cover,
+            //             image: AssetImage(
+            //               'assets/images/dog_marly01.png',
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Container(
+            //         height: 55,
+            //         width: SizeConfig.blockSizeHorizontal! * 25,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(
+            //             6,
+            //           ),
+            //           image: const DecorationImage(
+            //             fit: BoxFit.cover,
+            //             image: AssetImage(
+            //               'assets/images/dog_marly02.png',
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Container(
+            //         height: 55,
+            //         width: SizeConfig.blockSizeHorizontal! * 25,
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(6),
+            //           image: const DecorationImage(
+            //             fit: BoxFit.cover,
+            //             image: AssetImage(
+            //               'assets/images/dog_marly03.png',
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 60,
             ),

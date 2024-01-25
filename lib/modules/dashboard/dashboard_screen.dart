@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_shop/app_styles.dart';
+import 'package:pet_shop/data/pet_data.dart';
 import 'package:pet_shop/modules/home/home_controller.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/size_config.dart';
@@ -18,22 +20,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    List<String> dogs = [
-      'dog_marly.png',
-      'dog_cocoa.png',
-      'dog_walt.png',
-    ];
-
     List<String> cats = [
       'cat_alyx.png',
       'cat_brook.png',
       'cat_marly.png',
-    ];
-
-    List<String> dogsName = [
-      'Marly',
-      'Cocoa',
-      'Walt',
     ];
 
     List<String> catsName = [
@@ -151,7 +141,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           SizedBox(
             height: 169,
             child: ListView.builder(
-              itemCount: dogs.length,
+              itemCount: 3,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Container(
@@ -159,7 +149,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   width: 150,
                   margin: EdgeInsets.only(
                     left: index == 0 ? 30 : 15,
-                    right: index == dogs.length - 1 ? 30 : 0,
+                    right: index == 3 - 1 ? 30 : 0,
                   ),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -178,7 +168,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.toNamed(PetDetailScreen.routeName);
+                          Get.toNamed(
+                            PetDetailScreen.routeName,
+                            arguments: dogList()[index],
+                          );
                         },
                         child: SizedBox(
                           height: 80,
@@ -186,8 +179,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: ClipRRect(
                             borderRadius:
                                 BorderRadius.circular(kBorderRadiusList),
-                            child: Image.asset(
-                              'assets/images/${dogs[index]}',
+                            child: Image.network(
+                              dogList()[index].image,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -210,7 +203,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'DOGDOG',
+                                dogList()[index].categorie,
                                 style: kSourceSansProBold.copyWith(
                                   fontSize:
                                       SizeConfig.blockSizeHorizontal! * 2.5,
@@ -218,11 +211,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                               ),
                             ),
-                          ),
-                          const Icon(
-                            Icons.favorite_outline,
-                            color: kRed,
-                            size: 16,
                           ),
                         ],
                       ),
@@ -232,7 +220,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Row(
                         children: [
                           Text(
-                            dogsName[index],
+                            dogList()[index].name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: kSourceSansProBold.copyWith(
@@ -248,7 +236,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Row(
                         children: [
                           Text(
-                            '17 jun 2021',
+                            DateFormat.yMMMd().format(dogList()[index].birth),
+                            // petList[index].birth.toString(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: kSourceSansProregular.copyWith(
@@ -324,13 +313,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       SizedBox(
                         height: 80,
                         width: 150,
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(kBorderRadiusList),
-                          child: Image.asset(
-                            'assets/images/${cats[index]}',
-                            fit: BoxFit.cover,
+                        child: InkWell(
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(kBorderRadiusList),
+                            child: Image.network(
+                              catList()[index].image,
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                          onTap: () {
+                            Get.toNamed(
+                              PetDetailScreen.routeName,
+                              arguments: catList()[index],
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -350,7 +347,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'CATCAT',
+                                catList()[index].categorie,
                                 style: kSourceSansProBold.copyWith(
                                   fontSize:
                                       SizeConfig.blockSizeHorizontal! * 2.5,
@@ -358,11 +355,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                               ),
                             ),
-                          ),
-                          const Icon(
-                            Icons.favorite_outline,
-                            color: kRed,
-                            size: 16,
                           ),
                         ],
                       ),
@@ -388,7 +380,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Row(
                         children: [
                           Text(
-                            '17 jun 2021',
+                            DateFormat.yMMMd().format(catList()[index].birth),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: kSourceSansProregular.copyWith(

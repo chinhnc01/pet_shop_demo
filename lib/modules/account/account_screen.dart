@@ -57,10 +57,10 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               const SizedBox(height: 4 * 5),
               textBodyLarge(
-                text: 'Nguyen Cong Chinh',
+                text: accountController.userName,
                 fontWeight: FontWeight.bold,
               ),
-              textBodyMedium(text: 'nguyenchinh@gmail.com'),
+              textBodyMedium(text: accountController.userEmail),
               const SizedBox(height: 4 * 5),
               SizedBox(
                 width: Get.width * 0.5,

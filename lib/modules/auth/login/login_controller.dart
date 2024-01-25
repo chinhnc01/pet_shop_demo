@@ -14,11 +14,21 @@ class LoginController extends GetxController
     super.onInit();
     initData();
     changeUI();
+    checkLogin();
   }
 
   initData() {
     emailTE = TextEditingController();
     passTE = TextEditingController();
+  }
+
+  Future<void> checkLogin() async {
+    // FirebaseAuth auth = FirebaseAuth.instance;
+
+    // if (auth.currentUser != null) {
+    //   // Get.offAllNamed(HomeScreen.routeName);
+    //   await buildToast(type: TypeToast.success, title: 'not null');
+    // }
   }
 
   Future<User?> signInUsingEmailPassword({
@@ -33,11 +43,15 @@ class LoginController extends GetxController
         email: email,
         password: password,
       );
+
       user = userCredential.user;
+
+      await box.write('userEmail', user!.email);
+      await box.write('userName', user.displayName);
 
       buildToast(
         type: TypeToast.success,
-        title: user.toString(),
+        title: 'Welcome: ${user.displayName.toString()}',
       );
       Get.offAllNamed(HomeScreen.routeName);
     } on FirebaseAuthException catch (e) {

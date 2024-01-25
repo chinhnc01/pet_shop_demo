@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
+import 'package:pet_shop/data/pet_data.dart';
 import 'package:pet_shop/modules/all_pet/all_pet_controller.dart';
+import 'package:pet_shop/modules/cart/cart_controller.dart';
+import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 import 'package:pet_shop/widgets/widgets.dart';
@@ -16,6 +19,7 @@ class AllPetScreen extends StatefulWidget {
 
 class _AllPetScreenState extends State<AllPetScreen> {
   AllPetController allPetController = Get.put(AllPetController());
+  CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +62,28 @@ class _AllPetScreenState extends State<AllPetScreen> {
                   crossAxisSpacing: 16,
                   childAspectRatio: .62,
                   children: List.generate(
-                    24, //this is the total number of cards
+                    petList.length, //this is the total number of cards
                     (index) {
                       return petItem(
-                        image:
-                            'https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
-                        name: 'Choichoi',
-                        price: '1232',
-                        type: 'Dog',
-                      );
+                          image: petList[index].image,
+                          name: petList[index].name,
+                          price: petList[index].price.toString(),
+                          type: petList[index].categorie,
+                          onTap: () {
+                            Get.toNamed(
+                              PetDetailScreen.routeName,
+                              arguments: petList[index],
+                            );
+                          },
+                          onTapAddToCart: () {
+                            cartController.createCartList(
+                              petId: petList[index]!.id,
+                              petImage: petList[index]!.image,
+                              quantity: 1,
+                              petName: petList[index]!.name,
+                              petPrice: petList[index]!.price,
+                            );
+                          });
                     },
                   ),
                 )
@@ -83,6 +100,8 @@ class _AllPetScreenState extends State<AllPetScreen> {
     required String image,
     required String price,
     required String type,
+    required Function? onTap,
+    required Function? onTapAddToCart,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -100,16 +119,21 @@ class _AllPetScreenState extends State<AllPetScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(15),
-              ),
-              child: Image.network(
-                image,
-                width: Get.width,
-                height: Get.height * 0.18,
-                // height: double.infinity * 0.7,
-                fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () {
+                if (onTap != null) onTap();
+              },
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15),
+                ),
+                child: Image.network(
+                  image,
+                  width: Get.width,
+                  height: Get.height * 0.18,
+                  // height: double.infinity * 0.7,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -139,14 +163,13 @@ class _AllPetScreenState extends State<AllPetScreen> {
                 width: 12,
               ),
               IconButton(
-                  icon: const Icon(
-                    LucideIcons.shoppingCart,
-                    size: 14,
-                    color: kOrange,
-                  ),
-                  onPressed: () {
-                    // cartController.addProductToCart(product);
-                  })
+                icon: const Icon(
+                  LucideIcons.shoppingCart,
+                  size: 14,
+                  color: kOrange,
+                ),
+                onPressed: onTapAddToCart!(),
+              )
             ],
           ),
         ],

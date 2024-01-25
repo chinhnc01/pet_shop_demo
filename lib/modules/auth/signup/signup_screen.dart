@@ -72,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           label: 'Họ tên',
                         ),
                         maxLines: 1,
-                        validator: signupController.validateEmail,
+                        validator: signupController.validateString,
                         onTap: () {},
                       ),
                       const SizedBox(
@@ -116,14 +116,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ),
                         ),
-                        validator: signupController.validateString,
+                        validator: signupController.validatePass,
                       ),
                       const SizedBox(
                         height: 4 * 6,
                       ),
                       TextFormField(
                         onTap: () {},
-                        controller: signupController.passTE,
+                        controller: signupController.repassTE,
                         obscureText: passwordVisible,
                         style: mulish(fontSize: 16),
                         decoration: textFieldInputStyle(
@@ -145,7 +145,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ),
                         ),
-                        validator: signupController.validateString,
+                        validator: signupController.validateConfirmPass,
                       ),
                     ],
                   ),

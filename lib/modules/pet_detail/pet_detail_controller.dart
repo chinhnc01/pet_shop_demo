@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 class PetDetailController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
-  int selectItemScreen = 0;
   @override
   Future<void> onInit() async {
     changeUI();

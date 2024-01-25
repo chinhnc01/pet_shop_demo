@@ -19,8 +19,8 @@ class SignupController extends GetxController
 
   initData() {
     emailTE = TextEditingController();
-    passTE = TextEditingController();
     nameTE = TextEditingController();
+    passTE = TextEditingController();
     repassTE = TextEditingController();
   }
 
@@ -40,12 +40,17 @@ class SignupController extends GetxController
       await user!.updateDisplayName(name);
       await user.reload();
       user = auth.currentUser;
-      buildToast(type: TypeToast.success, title: user.toString());
+      // buildToast(type: TypeToast.success, title: user.toString());
+      buildToast(type: TypeToast.success, title: user!.email.toString());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         debugPrint('The account already exists for that email.');
+        buildToast(
+          type: TypeToast.failure,
+          title: 'The account already exists for that email.',
+        );
       }
     } catch (e) {
       debugPrint(e as String?);
@@ -63,6 +68,19 @@ class SignupController extends GetxController
       return "Trường bắt buộc";
     }
     return null;
+  }
+
+  String? validatePass(String? value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = RegExp(pattern);
+    return (regExp.hasMatch(value ?? '') && ((value ?? '').length > 7))
+        ? null
+        : 'Mật khẩu không đủ mạnh';
+  }
+
+  String? validateConfirmPass(String? value) {
+    return (value == passTE.text ? null : 'Mật khẩu không khớp');
   }
 
   changeUI() {

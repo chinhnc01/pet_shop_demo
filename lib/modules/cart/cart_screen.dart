@@ -32,29 +32,37 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildBody() {
-    return SafeArea(
-      child: ListView.separated(
-        padding: const EdgeInsets.all(20),
-        itemBuilder: (context, index) => CartTile(
-          // item: cartItems[index],
-          onRemove: () {
-            // if (cartItems[index].quantity != 1) {
-            //   setState(() {
-            //     cartItems[index].quantity--;
-            //   });
-            // }
-          },
-          onAdd: () {
-            // setState(() {
-            //   cartItems[index].quantity++;
-            // });
-          },
-          name: 'Chihuahua',
-          price: '1280',
-          image: 'assets/images/dog_marly_cover.png',
+    return cartController.obx(
+      (state) => SafeArea(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(20),
+          itemBuilder: (context, index) => CartTile(
+            // item: cartItems[index],
+            onRemove: () {
+              // if (cartItems[index].quantity != 1) {
+              //   setState(() {
+              //     cartItems[index].quantity--;
+              //   });
+              // }
+            },
+            onAdd: () {
+              // setState(() {
+              //   cartItems[index].quantity++;
+              // });
+            },
+            onDelete: () {
+              cartController.deleteItem(
+                emailUser: cartController.cartList[index]!.email.toString(),
+                petIdDelete: cartController.cartList[index]!.petId ?? 0,
+              );
+            },
+            name: cartController.cartList[index]!.petName.toString(),
+            image: cartController.cartList[index]!.petImage.toString(),
+            price: cartController.cartList[index]!.petPrice.toString(),
+          ),
+          separatorBuilder: (context, index) => const SizedBox(height: 20),
+          itemCount: cartController.cartList.length,
         ),
-        separatorBuilder: (context, index) => const SizedBox(height: 20),
-        itemCount: 10,
       ),
     );
   }
@@ -65,6 +73,7 @@ class CartTile extends StatelessWidget {
   final String name, price, image;
   final Function() onRemove;
   final Function() onAdd;
+  final Function() onDelete;
   const CartTile({
     super.key,
     // required this.item,
@@ -73,6 +82,7 @@ class CartTile extends StatelessWidget {
     required this.name,
     required this.price,
     required this.image,
+    required this.onDelete,
   });
 
   @override
@@ -105,7 +115,7 @@ class CartTile extends StatelessWidget {
                 // padding: const EdgeInsets.all(10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
+                  child: Image.network(
                     image,
                     fit: BoxFit.cover,
                   ),
@@ -140,7 +150,7 @@ class CartTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: onDelete,
                 icon: const Icon(
                   LucideIcons.trash2,
                   color: Colors.red,
