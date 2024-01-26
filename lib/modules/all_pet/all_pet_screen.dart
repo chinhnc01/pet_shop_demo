@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
-import 'package:pet_shop/data/pet_data.dart';
 import 'package:pet_shop/modules/all_pet/all_pet_controller.dart';
-import 'package:pet_shop/modules/cart/cart_controller.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
@@ -19,7 +16,7 @@ class AllPetScreen extends StatefulWidget {
 
 class _AllPetScreenState extends State<AllPetScreen> {
   AllPetController allPetController = Get.put(AllPetController());
-  CartController cartController = Get.put(CartController());
+  // CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,12 @@ class _AllPetScreenState extends State<AllPetScreen> {
                 const SizedBox(
                   height: 4 * 5,
                 ),
-                searchBar(controller: allPetController.searchTE),
+                searchBar(
+                  controller: allPetController.searchTE,
+                  onChange: (value) {
+                    allPetController.searchListPet(search: value);
+                  },
+                ),
                 const SizedBox(
                   height: 4 * 5,
                 ),
@@ -62,27 +64,30 @@ class _AllPetScreenState extends State<AllPetScreen> {
                   crossAxisSpacing: 16,
                   childAspectRatio: .62,
                   children: List.generate(
-                    petList.length, //this is the total number of cards
+                    allPetController.listPetResult
+                        .length, //this is the total number of cards
                     (index) {
                       return petItem(
-                          image: petList[index].image,
-                          name: petList[index].name,
-                          price: petList[index].price.toString(),
-                          type: petList[index].categorie,
+                          image: allPetController.listPetResult[index]!.image,
+                          name: allPetController.listPetResult[index]!.name,
+                          price: allPetController.listPetResult[index]!.price
+                              .toString(),
+                          type:
+                              allPetController.listPetResult[index]!.categorie,
                           onTap: () {
                             Get.toNamed(
                               PetDetailScreen.routeName,
-                              arguments: petList[index],
+                              arguments: allPetController.listPetResult[index],
                             );
                           },
                           onTapAddToCart: () {
-                            cartController.createCartList(
-                              petId: petList[index]!.id,
-                              petImage: petList[index]!.image,
-                              quantity: 1,
-                              petName: petList[index]!.name,
-                              petPrice: petList[index]!.price,
-                            );
+                            // cartController.createCartList(
+                            //   petId: petList[index]!.id,
+                            //   petImage: petList[index]!.image,
+                            //   quantity: 1,
+                            //   petName: petList[index]!.name,
+                            //   petPrice: petList[index]!.price,
+                            // );
                           });
                     },
                   ),
@@ -115,14 +120,14 @@ class _AllPetScreenState extends State<AllPetScreen> {
           )
         ],
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                if (onTap != null) onTap();
-              },
+      child: InkWell(
+        onTap: () {
+          if (onTap != null) onTap();
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(15),
@@ -136,43 +141,43 @@ class _AllPetScreenState extends State<AllPetScreen> {
                 ),
               ),
             ),
-          ),
-          textBodyMedium(
-            text: name,
-            fontWeight: FontWeight.bold,
-          ),
-          textBodySmall(
-            text: type,
-            color: Colors.grey,
-          ),
-          // const SizedBox(
-          //   height: 5,
-          // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 12.0),
-                child: textBodySmall(
-                  text: "\$$price",
-                  color: kOrange,
-                  fontWeight: FontWeight.bold,
+            textBodyMedium(
+              text: name,
+              fontWeight: FontWeight.bold,
+            ),
+            textBodySmall(
+              text: type,
+              color: Colors.grey,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: textBodySmall(
+                    text: "\$$price",
+                    color: kOrange,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              IconButton(
-                icon: const Icon(
-                  LucideIcons.shoppingCart,
-                  size: 14,
-                  color: kOrange,
+                const SizedBox(
+                  width: 12,
                 ),
-                onPressed: onTapAddToCart!(),
-              )
-            ],
-          ),
-        ],
+                // IconButton(
+                //   icon: const Icon(
+                //     LucideIcons.shoppingCart,
+                //     size: 14,
+                //     color: kOrange,
+                //   ),
+                //   onPressed: onTapAddToCart!(),
+                // ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

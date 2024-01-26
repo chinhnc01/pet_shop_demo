@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pet_shop/modules/auth/login/login_screen.dart';
@@ -15,19 +16,24 @@ class SplashController extends GetxController
     changeUI();
   }
 
-  Future<void> check() async {
-    Future.delayed(const Duration(seconds: 4), () {
-      Get.offAndToNamed(HomeScreen.routeName);
-    });
-  }
-
-  Future<void> direct() async {
-    Future.delayed(
-      const Duration(seconds: 4),
-      () {
-        Get.offAndToNamed(LoginScreen.routeName);
-      },
-    );
+  Future<void> checkLogin() async {
+    final auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    if (user != null) {
+      Timer(
+        const Duration(seconds: 5),
+        () {
+          Get.offAndToNamed(HomeScreen.routeName);
+        },
+      );
+    } else {
+      Timer(
+        const Duration(seconds: 5),
+        () {
+          Get.toNamed(LoginScreen.routeName);
+        },
+      );
+    }
   }
 
   changeUI() {

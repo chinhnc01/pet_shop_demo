@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/modules/cart/cart_controller.dart';
 import 'package:pet_shop/widgets/base/base.dart';
@@ -33,37 +34,50 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildBody() {
     return cartController.obx(
-      (state) => SafeArea(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(20),
-          itemBuilder: (context, index) => CartTile(
-            // item: cartItems[index],
-            onRemove: () {
-              // if (cartItems[index].quantity != 1) {
-              //   setState(() {
-              //     cartItems[index].quantity--;
-              //   });
-              // }
-            },
-            onAdd: () {
-              // setState(() {
-              //   cartItems[index].quantity++;
-              // });
-            },
-            onDelete: () {
-              cartController.deleteItem(
-                emailUser: cartController.cartList[index]!.email.toString(),
-                petIdDelete: cartController.cartList[index]!.petId ?? 0,
-              );
-            },
-            name: cartController.cartList[index]!.petName.toString(),
-            image: cartController.cartList[index]!.petImage.toString(),
-            price: cartController.cartList[index]!.petPrice.toString(),
-          ),
-          separatorBuilder: (context, index) => const SizedBox(height: 20),
-          itemCount: cartController.cartList.length,
-        ),
-      ),
+      (state) => (cartController.cartList.isEmpty)
+          ? Center(
+              child: Container(
+                child: Lottie.asset(
+                  'assets/animate/empty_cart.json',
+                  width: Get.width * 0.6,
+                  height: Get.width * 0.6,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )
+          : SafeArea(
+              child: ListView.separated(
+                padding: const EdgeInsets.all(20),
+                itemBuilder: (context, index) => CartTile(
+                  // item: cartItems[index],
+                  onRemove: () {
+                    // if (cartItems[index].quantity != 1) {
+                    //   setState(() {
+                    //     cartItems[index].quantity--;
+                    //   });
+                    // }
+                  },
+                  onAdd: () {
+                    // setState(() {
+                    //   cartItems[index].quantity++;
+                    // });
+                  },
+                  onDelete: () {
+                    cartController.deleteItem(
+                      emailUser:
+                          cartController.cartList[index]!.email.toString(),
+                      petIdDelete: cartController.cartList[index]!.petId ?? 0,
+                    );
+                  },
+                  name: cartController.cartList[index]!.petName.toString(),
+                  image: cartController.cartList[index]!.petImage.toString(),
+                  price: cartController.cartList[index]!.petPrice.toString(),
+                ),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 20),
+                itemCount: cartController.cartList.length,
+              ),
+            ),
     );
   }
 }

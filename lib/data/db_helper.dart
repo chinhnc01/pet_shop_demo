@@ -80,9 +80,9 @@ class DBHelper {
   }
 
   Future<Cart> save(Cart myCart) async {
-    int? result = 0;
+    // int? result = 0;
     var dbClient = await database;
-    result = await dbClient?.insert(tableName, myCart.toMap());
+    await dbClient?.insert(tableName, myCart.toMap());
     return myCart;
   }
 
@@ -105,11 +105,15 @@ class DBHelper {
         where: "$email = \"$emailUser\" AND $petId = $petIdDelete");
   }
 
-  // Future<int?> delete(String email, int idplant) async { // xóa employee
-  //   var dbClient = await db;
-  //   int? result = 0;
-  //   result = await dbClient?.delete(TABLE, where: '$EMAIL = \"$email\" AND $IDPLANT = $idplant'); //where - xóa tại ID nào, whereArgs - argument là gì?
-  //   getDataMyCart(email);
-  //   return result;
-  // }
+  Future<bool> checkPetInCart(String emailUser, int petIdCheck) async {
+    var dbClient = await database;
+    //List<Map> maps = await dbClient?.query(TABLE, columns: [ID, NAME]);
+    List<Map<String, dynamic>>? maps =
+        await dbClient?.rawQuery("SELECT * FROM $tableName "
+            "WHERE $email = \"$emailUser\" AND $petId = $petIdCheck");
+    if (maps!.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
 }

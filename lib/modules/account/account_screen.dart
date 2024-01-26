@@ -108,23 +108,19 @@ class _AccountScreenState extends State<AccountScreen> {
                         title: 'Settings',
                       ),
                       buttonSetting(
-                        iconStart: LucideIcons.wallet2,
-                        iconEnd: LucideIcons.chevronRight,
-                        isHasIconEnd: true,
-                        title: 'Billing Details',
-                      ),
-                      buttonSetting(
                         iconStart: LucideIcons.info,
                         iconEnd: LucideIcons.chevronRight,
                         isHasIconEnd: true,
                         title: 'App Information',
                       ),
                       buttonSetting(
-                        iconStart: LucideIcons.logOut,
-                        iconEnd: LucideIcons.listVideo,
-                        title: 'Logout',
-                        isToggle: true,
-                      ),
+                          iconStart: LucideIcons.logOut,
+                          iconEnd: LucideIcons.listVideo,
+                          title: 'Logout',
+                          isToggle: true,
+                          onTap: () {
+                            accountController.logOut();
+                          }),
                       const SizedBox(
                         height: 4 * 5,
                       ),

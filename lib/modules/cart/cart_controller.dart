@@ -46,16 +46,15 @@ class CartController extends GetxController
       petName: petName,
       petPrice: petPrice,
     );
-    // if(await dbHelper.checkPlantInMyCart(authController.user!, id)){
-    //   Get.snackbar('Sản phẩm có sẵn trong giỏ hàng', 'vào giỏ hàng để cập nhật số lượng');
-    // }else{
-    //   dbHelper.save(myCart1);
-    //   Get.snackbar('Đã thêm vào giỏ hàng', 'Vào giỏ hàng để kiểm tra');
-    // }
-
-    dbHelper.save(myCart1);
-
-    buildToast(type: TypeToast.transparent, title: 'Added to cart');
+    if (await dbHelper.checkPetInCart(accountController.userEmail, petId)) {
+      buildToast(
+        type: TypeToast.failure,
+        title: 'Pet already in the cart',
+      );
+    } else {
+      dbHelper.save(myCart1);
+      buildToast(type: TypeToast.transparent, title: 'Added to cart');
+    }
 
     await getCartList();
 

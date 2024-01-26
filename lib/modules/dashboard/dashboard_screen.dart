@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/data/pet_data.dart';
+import 'package:pet_shop/modules/account/account_controller.dart';
 import 'package:pet_shop/modules/home/home_controller.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/size_config.dart';
@@ -16,21 +17,10 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   HomeController homeController = Get.put(HomeController());
+  AccountController accountController = Get.put(AccountController());
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-
-    List<String> cats = [
-      'cat_alyx.png',
-      'cat_brook.png',
-      'cat_marly.png',
-    ];
-
-    List<String> catsName = [
-      'Alyx',
-      'Brook',
-      'Marly',
-    ];
 
     return SafeArea(
       child: ListView(
@@ -75,7 +65,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             width: 6,
                           ),
                           Text(
-                            'Sip_huong',
+                            accountController.userName,
                             style: kSourceSansProMedium.copyWith(
                               fontSize: SizeConfig.blockSizeHorizontal! * 5.5,
                               color: kBlack,
@@ -285,7 +275,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           SizedBox(
             height: 169,
             child: ListView.builder(
-              itemCount: cats.length,
+              itemCount: 3,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Container(
@@ -293,7 +283,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   width: 150,
                   margin: EdgeInsets.only(
                     left: index == 0 ? 30 : 15,
-                    right: index == cats.length - 1 ? 30 : 0,
+                    right: index == 3 - 1 ? 30 : 0,
                   ),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -364,7 +354,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Row(
                         children: [
                           Text(
-                            catsName[index],
+                            catList()[index].name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: kSourceSansProBold.copyWith(
