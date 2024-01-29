@@ -134,36 +134,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
               itemCount: 3,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return Container(
-                  height: 169,
-                  width: 150,
-                  margin: EdgeInsets.only(
-                    left: index == 0 ? 30 : 15,
-                    right: index == 3 - 1 ? 30 : 0,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kBorderRadiusList),
-                    color: kWhite,
-                    boxShadow: [
-                      BoxShadow(
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                      PetDetailScreen.routeName,
+                      arguments: dogList()[index],
+                    );
+                  },
+                  child: Container(
+                    height: 169,
+                    width: 150,
+                    margin: EdgeInsets.only(
+                      left: index == 0 ? 30 : 15,
+                      right: index == 3 - 1 ? 30 : 0,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kBorderRadiusList),
+                      color: kWhite,
+                      boxShadow: [
+                        BoxShadow(
                           blurRadius: 14,
                           offset: const Offset(0, 3),
                           color: kBoxShadowColor.withOpacity(
                             0.18,
-                          ))
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(
-                            PetDetailScreen.routeName,
-                            arguments: dogList()[index],
-                          );
-                        },
-                        child: SizedBox(
+                          ),
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
                           height: 80,
                           width: 150,
                           child: ClipRRect(
@@ -175,69 +176,69 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: SizeConfig.blockSizeVertical! * 2,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.5),
-                              color: kLightOrange,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 7,
-                            ),
-                            child: Center(
-                              child: Text(
-                                dogList()[index].categorie,
-                                style: kSourceSansProBold.copyWith(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 2.5,
-                                  color: kOrange,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: SizeConfig.blockSizeVertical! * 2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.5),
+                                color: kLightOrange,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  dogList()[index].categorie,
+                                  style: kSourceSansProBold.copyWith(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 2.5,
+                                    color: kOrange,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            dogList()[index].name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: kSourceSansProBold.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                              color: kGrey,
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              dogList()[index].name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: kSourceSansProBold.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                color: kGrey,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            DateFormat.yMMMd().format(dogList()[index].birth),
-                            // petList[index].birth.toString(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: kSourceSansProregular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 2,
-                              color: kLightGrey,
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              DateFormat.yMMMd().format(dogList()[index].birth),
+                              // petList[index].birth.toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: kSourceSansProregular.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 2,
+                                color: kLightGrey,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
@@ -278,109 +279,117 @@ class _DashboardScreenState extends State<DashboardScreen> {
               itemCount: 3,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return Container(
-                  height: 169,
-                  width: 150,
-                  margin: EdgeInsets.only(
-                    left: index == 0 ? 30 : 15,
-                    right: index == 3 - 1 ? 30 : 0,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kBorderRadiusList),
-                    color: kWhite,
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 14,
-                          offset: const Offset(0, 3),
-                          color: kBoxShadowColor.withOpacity(
-                            0.18,
-                          ))
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 80,
-                        width: 150,
-                        child: InkWell(
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(kBorderRadiusList),
-                            child: Image.network(
-                              catList()[index].image,
-                              fit: BoxFit.cover,
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                      PetDetailScreen.routeName,
+                      arguments: catList()[index],
+                    );
+                  },
+                  child: Container(
+                    height: 169,
+                    width: 150,
+                    margin: EdgeInsets.only(
+                      left: index == 0 ? 30 : 15,
+                      right: index == 3 - 1 ? 30 : 0,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kBorderRadiusList),
+                      color: kWhite,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 14,
+                            offset: const Offset(0, 3),
+                            color: kBoxShadowColor.withOpacity(
+                              0.18,
+                            ))
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 80,
+                          width: 150,
+                          child: InkWell(
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(kBorderRadiusList),
+                              child: Image.network(
+                                catList()[index].image,
+                                fit: BoxFit.cover,
+                              ),
                             ),
+                            onTap: () {
+                              Get.toNamed(
+                                PetDetailScreen.routeName,
+                                arguments: catList()[index],
+                              );
+                            },
                           ),
-                          onTap: () {
-                            Get.toNamed(
-                              PetDetailScreen.routeName,
-                              arguments: catList()[index],
-                            );
-                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: SizeConfig.blockSizeVertical! * 2,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.5),
-                              color: kLightOrange,
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 7,
-                            ),
-                            child: Center(
-                              child: Text(
-                                catList()[index].categorie,
-                                style: kSourceSansProBold.copyWith(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 2.5,
-                                  color: kOrange,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: SizeConfig.blockSizeVertical! * 2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.5),
+                                color: kLightOrange,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  catList()[index].categorie,
+                                  style: kSourceSansProBold.copyWith(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 2.5,
+                                    color: kOrange,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            catList()[index].name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: kSourceSansProBold.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                              color: kGrey,
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              catList()[index].name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: kSourceSansProBold.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                color: kGrey,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            DateFormat.yMMMd().format(catList()[index].birth),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: kSourceSansProregular.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 2,
-                              color: kLightGrey,
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              DateFormat.yMMMd().format(catList()[index].birth),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: kSourceSansProregular.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 2,
+                                color: kLightGrey,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },

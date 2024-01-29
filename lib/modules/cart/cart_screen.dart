@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/cart/cart_controller.dart';
 import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
@@ -72,6 +73,8 @@ class _CartScreenState extends State<CartScreen> {
                   name: cartController.cartList[index]!.petName.toString(),
                   image: cartController.cartList[index]!.petImage.toString(),
                   price: cartController.cartList[index]!.petPrice.toString(),
+                  weight: cartController.cartList[index]!.petWeight.toString(),
+                  age: cartController.cartList[index]!.petAge.toString(),
                 ),
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 20),
@@ -84,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
 
 class CartTile extends StatelessWidget {
   // final CartItem item;
-  final String name, price, image;
+  final String name, price, image, weight, age;
   final Function() onRemove;
   final Function() onAdd;
   final Function() onDelete;
@@ -95,6 +98,8 @@ class CartTile extends StatelessWidget {
     required this.onAdd,
     required this.name,
     required this.price,
+    required this.weight,
+    required this.age,
     required this.image,
     required this.onDelete,
   });
@@ -120,8 +125,8 @@ class CartTile extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 85,
-                width: 85,
+                height: 90,
+                width: 90,
                 decoration: BoxDecoration(
                   // color: kBlack,
                   borderRadius: BorderRadius.circular(20),
@@ -145,12 +150,18 @@ class CartTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   textBodySmall(
-                    text: name,
+                    text: '$weight KG',
+                    color: kGrey,
+                  ),
+                  textBodySmall(
+                    text: '$age months',
+                    color: kGrey,
                   ),
                   const SizedBox(height: 10),
                   textBodySmall(
                     text: "\$ $price",
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
+                    color: kOrange,
                   ),
                 ],
               ),

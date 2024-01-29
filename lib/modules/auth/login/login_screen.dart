@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 4 * 20,
                       ),
                       textHeadlineLarge(
-                        text: 'Đăng nhập',
+                        text: 'Login',
                         fontWeight: FontWeight.w700,
                         color: kGrey,
                       ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 4 * 1,
                       ),
                       textBodySmall(
-                        text: 'Đăng nhập để bắt đầu',
+                        text: 'Login to start using the app',
                         color: kGrey.withOpacity(0.7),
                       ),
                       const SizedBox(
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: mulish(fontSize: 16),
                         validator: loginController.validateString,
                         decoration: textFieldInputStyle(
-                          label: 'Mật khẩu',
+                          label: 'Password',
                           suffixIcon: InkWell(
                             onTap: () {
                               setState(
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MaterialStateProperty.all<Color>(kBlack),
                           ),
                           child: textTitleSmall(
-                            text: 'Đăng nhập',
+                            text: 'Login',
                             color: kBoxShadowColor,
                           ),
                           onPressed: () {
@@ -149,17 +149,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Row(
                           children: [
                             textBodyMedium(
-                              text: 'Chưa có tài khoản? ',
+                              text: 'Don\'t have account? ',
                               color: kLightGrey,
                               fontWeight: FontWeight.w600,
                             ),
                             textBodyMedium(
-                              text: 'Đăng kí ',
+                              text: 'Sign up ',
                               color: kOrange,
                               fontWeight: FontWeight.w600,
                             ),
                             textBodyMedium(
-                              text: 'ngay',
+                              text: 'now',
                               color: kLightGrey,
                               fontWeight: FontWeight.w600,
                             ),

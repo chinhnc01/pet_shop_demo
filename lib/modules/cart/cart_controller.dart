@@ -37,6 +37,8 @@ class CartController extends GetxController
     required String petImage,
     required String petName,
     required num petPrice,
+    required num petAge,
+    required num petWeight,
   }) async {
     Cart myCart1 = Cart(
       email: accountController.userEmail,
@@ -45,6 +47,8 @@ class CartController extends GetxController
       petImage: petImage,
       petName: petName,
       petPrice: petPrice,
+      petAge: petAge,
+      petWeight: petWeight,
     );
     if (await dbHelper.checkPetInCart(accountController.userEmail, petId)) {
       buildToast(
@@ -53,7 +57,10 @@ class CartController extends GetxController
       );
     } else {
       dbHelper.save(myCart1);
-      buildToast(type: TypeToast.transparent, title: 'Added to cart');
+      buildToast(
+        type: TypeToast.transparent,
+        title: 'Added to cart',
+      );
     }
 
     await getCartList();

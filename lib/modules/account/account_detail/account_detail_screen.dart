@@ -19,9 +19,17 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
   AccountDetailController accountDetailController =
       Get.put(AccountDetailController());
   GlobalKey<FormState> keyForm1 = GlobalKey<FormState>(debugLabel: '_FormA1');
+
+  String userName = Get.arguments['userName'];
+  String userEmail = Get.arguments['userEmail'];
+
   @override
   void initState() {
     super.initState();
+    accountDetailController.getDataUser(
+      userEmail: userEmail,
+      userName: userName,
+    );
   }
 
   @override
@@ -67,8 +75,8 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                             TextFormField(
                               onTap: () {},
                               style: mulish(fontSize: 16),
-                              // controller: accountDetailController.firstNameTE,
-                              // validator: accountDetailController.validateString,
+                              controller: accountDetailController.userNameTE,
+                              validator: accountDetailController.validateString,
                               decoration: textFieldInputStyle(label: 'Tên'),
                             ),
                             const SizedBox(
@@ -77,36 +85,15 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                             TextFormField(
                               onTap: () {},
                               style: mulish(fontSize: 16),
-                              // controller: accountDetailController.lastNameTE,
+                              controller: accountDetailController.userEmailTE,
                               // validator: accountDetailController.validateString,
                               decoration: textFieldInputStyle(label: 'Email'),
+                              readOnly: true,
                             ),
                           ],
                         ),
                       )
                     ],
-                  ),
-                  const SizedBox(
-                    height: 4 * 5,
-                  ),
-                  TextField(
-                    onTap: () {},
-                    style: mulish(fontSize: 16),
-                    readOnly: true,
-                    // controller: accountDetailController.emailTE,
-                    decoration: textFieldInputStyle(label: 'Phone'),
-                    maxLines: 1,
-                  ),
-                  const SizedBox(
-                    height: 4 * 5,
-                  ),
-                  TextFormField(
-                    onTap: () {},
-                    style: mulish(fontSize: 16),
-                    showCursor: false,
-                    readOnly: true,
-                    // controller: accountDetailController.birtTE,
-                    decoration: textFieldInputStyle(label: 'Địa chỉ'),
                   ),
                   const SizedBox(
                     height: 4 * 12,
@@ -116,7 +103,10 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                     height: Get.height * 0.07,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Get.offAndToNamed(HomeScreen.routeName);
+                        if (keyForm1.currentState?.validate() ?? false) {
+                          debugPrint('ok');
+                          accountDetailController.editUserInfo(userName);
+                        }
                       },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(

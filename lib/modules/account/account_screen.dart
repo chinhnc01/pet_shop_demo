@@ -62,70 +62,74 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               textBodyMedium(text: accountController.userEmail),
               const SizedBox(height: 4 * 5),
-              SizedBox(
-                width: Get.width * 0.5,
-                height: Get.height * 0.07,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(AccountDetailScreen.routeName);
-                  },
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+              // SizedBox(
+              //   width: Get.width * 0.5,
+              //   height: Get.height * 0.07,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       Get.toNamed(AccountDetailScreen.routeName, arguments: {
+              //         'userName': accountController.userName,
+              //         'userEmail': accountController.userEmail,
+              //       });
+              //     },
+              //     style: ButtonStyle(
+              //       shape: MaterialStateProperty.all(
+              //         RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //       ),
+              //       backgroundColor: MaterialStateProperty.all<Color>(kBlack),
+              //     ),
+              //     child: textTitleSmall(
+              //       text: 'Edit Information',
+              //       color: kBoxShadowColor,
+              //     ),
+              //   ),
+              // ),
+              Container(
+                //height: 370,
+                width: Get.width,
+                color: Get.theme.colorScheme.background,
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 4 * 5,
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(kBlack),
-                  ),
-                  child: textTitleSmall(
-                    text: 'Edit Information',
-                    color: kBoxShadowColor,
-                  ),
+                    const SizedBox(
+                      height: 4 * 5,
+                    ),
+                    buttonSetting(
+                      onTap: () {
+                        // Get.toNamed(AccountDetailScreen.routeName);
+                      },
+                      iconStart: LucideIcons.userCog,
+                      iconEnd: LucideIcons.chevronRight,
+                      isHasIconEnd: true,
+                      title: 'Settings',
+                    ),
+                    buttonSetting(
+                      iconStart: LucideIcons.info,
+                      iconEnd: LucideIcons.chevronRight,
+                      isHasIconEnd: true,
+                      title: 'App Information',
+                    ),
+                    buttonSetting(
+                        iconStart: LucideIcons.logOut,
+                        iconEnd: LucideIcons.listVideo,
+                        title: 'Logout',
+                        isToggle: true,
+                        onTap: () {
+                          accountController.logOut();
+                        }),
+                    const SizedBox(
+                      height: 4 * 5,
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                  //height: 370,
-                  width: Get.width,
-                  color: Get.theme.colorScheme.background,
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 4 * 5,
-                      ),
-                      const SizedBox(
-                        height: 4 * 5,
-                      ),
-                      buttonSetting(
-                        onTap: () {
-                          // Get.toNamed(AccountDetailScreen.routeName);
-                        },
-                        iconStart: LucideIcons.userCog,
-                        iconEnd: LucideIcons.chevronRight,
-                        isHasIconEnd: true,
-                        title: 'Settings',
-                      ),
-                      buttonSetting(
-                        iconStart: LucideIcons.info,
-                        iconEnd: LucideIcons.chevronRight,
-                        isHasIconEnd: true,
-                        title: 'App Information',
-                      ),
-                      buttonSetting(
-                          iconStart: LucideIcons.logOut,
-                          iconEnd: LucideIcons.listVideo,
-                          title: 'Logout',
-                          isToggle: true,
-                          onTap: () {
-                            accountController.logOut();
-                          }),
-                      const SizedBox(
-                        height: 4 * 5,
-                      ),
-                    ],
-                  )),
             ],
             // ),
           ),

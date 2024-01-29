@@ -15,6 +15,8 @@ class DBHelper {
   static const String petPrice = 'petPrice';
   static const String quantity = 'quantity';
   static const String petImage = 'petImage';
+  static const String petAge = 'petAge';
+  static const String petWeight = 'petWeight';
   static const String tableName = 'tblCart';
   static const String dbName = 'cart.db';
 
@@ -49,7 +51,9 @@ class DBHelper {
         "$quantity NUMBER NOT NULL, "
         "$petImage TEXT NOT NULL, "
         "$petName TEXT NOT NULL, "
-        "$petPrice NUMBER NOT NULL"
+        "$petPrice NUMBER NOT NULL, "
+        "$petAge NUMBER NOT NULL, "
+        "$petWeight NUMBER NOT NULL"
         ")");
   }
 

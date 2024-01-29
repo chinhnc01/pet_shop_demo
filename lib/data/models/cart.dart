@@ -5,6 +5,8 @@ class Cart {
   String? petName;
   int? petId;
   int? quantity;
+  num? petAge;
+  num? petWeight;
   Cart({
     required this.email,
     required this.petId,
@@ -12,6 +14,8 @@ class Cart {
     required this.petImage,
     required this.petName,
     required this.petPrice,
+    required this.petAge,
+    required this.petWeight,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +26,8 @@ class Cart {
       'petImage': petImage,
       'petName': petName,
       'petPrice': petPrice,
+      'petAge': petAge,
+      'petWeight': petWeight,
     };
     return map;
   }
@@ -33,6 +39,8 @@ class Cart {
     petImage = map["petImage"];
     petName = map["petName"];
     petPrice = map["petPrice"];
+    petAge = map["petAge"];
+    petWeight = map["petWeight"];
   }
 
   // Map<String, Object> toJson() => {

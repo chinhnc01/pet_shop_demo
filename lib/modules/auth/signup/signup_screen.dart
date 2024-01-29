@@ -37,123 +37,128 @@ class _SignupScreenState extends State<SignupScreen> {
       (state) => SafeArea(
         child: Form(
           key: keyForm1,
-          child: Container(
-            height: Get.height,
-            margin: alignment_20_0(),
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 4 * 20,
-                      ),
-                      textHeadlineLarge(
-                        text: 'Đăng ký',
-                        fontWeight: FontWeight.w700,
-                        color: kGrey,
-                      ),
-                      const SizedBox(
-                        height: 4 * 1,
-                      ),
-                      textBodySmall(
-                        text: 'Đăng ký để bắt đầu sử dụng ứng dụng',
-                        color: kGrey.withOpacity(0.7),
-                      ),
-                      const SizedBox(
-                        height: 4 * 16,
-                      ),
-                      TextFormField(
-                        controller: signupController.nameTE,
-                        style: mulish(fontSize: 16),
-                        decoration: textFieldInputStyle(
-                          label: 'Họ tên',
+          child: SingleChildScrollView(
+            child: Container(
+              height: Get.height,
+              margin: alignment_20_0(),
+              child: Column(
+                // alignment: Alignment.topCenter,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 4 * 20,
                         ),
-                        maxLines: 1,
-                        validator: signupController.validateString,
-                        onTap: () {},
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                      TextFormField(
-                        onTap: () {},
-                        controller: signupController.emailTE,
-                        style: mulish(fontSize: 16),
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: textFieldInputStyle(
-                          label: 'Email',
+                        textHeadlineLarge(
+                          text: 'Create Account',
+                          fontWeight: FontWeight.w700,
+                          color: kGrey,
                         ),
-                        maxLines: 1,
-                        validator: signupController.validateEmail,
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                      TextFormField(
-                        onTap: () {},
-                        controller: signupController.passTE,
-                        obscureText: passwordVisible,
-                        style: mulish(fontSize: 16),
-                        decoration: textFieldInputStyle(
-                          label: 'Mật khẩu',
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              setState(
-                                () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
-                            },
-                            child: Ink(
-                              child: Icon(
-                                passwordVisible
-                                    ? LucideIcons.eye
-                                    : LucideIcons.eyeOff,
+                        const SizedBox(
+                          height: 4 * 1,
+                        ),
+                        textBodySmall(
+                          text: 'Sign up to start using the app',
+                          color: kGrey.withOpacity(0.7),
+                        ),
+                        const SizedBox(
+                          height: 4 * 16,
+                        ),
+                        TextFormField(
+                          controller: signupController.nameTE,
+                          style: mulish(fontSize: 16),
+                          decoration: textFieldInputStyle(
+                            label: 'Full name',
+                          ),
+                          maxLines: 1,
+                          validator: signupController.validateString,
+                          onTap: () {},
+                        ),
+                        const SizedBox(
+                          height: 4 * 6,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          controller: signupController.emailTE,
+                          style: mulish(fontSize: 16),
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: textFieldInputStyle(
+                            label: 'Email',
+                          ),
+                          maxLines: 1,
+                          validator: signupController.validateEmail,
+                        ),
+                        const SizedBox(
+                          height: 4 * 6,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          controller: signupController.passTE,
+                          obscureText: passwordVisible,
+                          style: mulish(fontSize: 16),
+                          decoration: textFieldInputStyle(
+                            label: 'Password',
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                              child: Ink(
+                                child: Icon(
+                                  passwordVisible
+                                      ? LucideIcons.eye
+                                      : LucideIcons.eyeOff,
+                                ),
                               ),
                             ),
                           ),
+                          validator: signupController.validatePass,
                         ),
-                        validator: signupController.validatePass,
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                      TextFormField(
-                        onTap: () {},
-                        controller: signupController.repassTE,
-                        obscureText: passwordVisible,
-                        style: mulish(fontSize: 16),
-                        decoration: textFieldInputStyle(
-                          label: 'Nhập lại mật khẩu',
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              setState(
-                                () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
-                            },
-                            child: Ink(
-                              child: Icon(
-                                passwordVisible
-                                    ? LucideIcons.eye
-                                    : LucideIcons.eyeOff,
+                        const SizedBox(
+                          height: 4 * 6,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          controller: signupController.repassTE,
+                          obscureText: passwordVisible,
+                          style: mulish(fontSize: 16),
+                          decoration: textFieldInputStyle(
+                            label: 'Confirm password',
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                              child: Ink(
+                                child: Icon(
+                                  passwordVisible
+                                      ? LucideIcons.eye
+                                      : LucideIcons.eyeOff,
+                                ),
                               ),
                             ),
                           ),
+                          validator: signupController.validateConfirmPass,
                         ),
-                        validator: signupController.validateConfirmPass,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Column(
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: Get.width * 0.5,
@@ -169,7 +174,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 MaterialStateProperty.all<Color>(kBlack),
                           ),
                           child: textTitleSmall(
-                            text: 'Đăng ký',
+                            text: 'Sign up',
                             color: kBoxShadowColor,
                           ),
                           onPressed: () {
@@ -191,32 +196,30 @@ class _SignupScreenState extends State<SignupScreen> {
                           Get.toNamed(LoginScreen.routeName);
                         },
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             textBodyMedium(
-                              text: 'Đã có tài khoản? ',
+                              text: 'Already have an account ',
                               color: kLightGrey,
                               fontWeight: FontWeight.w600,
                             ),
                             textBodyMedium(
-                              text: 'Đăng nhập ',
+                              text: 'Login ',
                               color: kOrange,
                               fontWeight: FontWeight.w600,
                             ),
                             textBodyMedium(
-                              text: 'ngay',
+                              text: 'now.',
                               color: kLightGrey,
                               fontWeight: FontWeight.w600,
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

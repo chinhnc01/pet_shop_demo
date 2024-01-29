@@ -7,6 +7,7 @@ import 'package:pet_shop/data/models/pet.dart';
 import 'package:pet_shop/modules/cart/cart_controller.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_controller.dart';
 import 'package:pet_shop/size_config.dart';
+import 'package:pet_shop/widgets/share_function/share_funciton.dart';
 
 class PetDetailScreen extends StatefulWidget {
   const PetDetailScreen({Key? key}) : super(key: key);
@@ -29,13 +30,16 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          debugPrint('Add to cart button pressed!');
           cartController.createCartList(
             petId: pet!.id,
             petImage: pet!.image,
             quantity: 1,
             petName: pet!.name,
             petPrice: pet!.price,
+            petAge: num.parse(
+                ((DateTime.now()).difference(pet!.birth).inDays / 30)
+                    .toStringAsFixed(0)),
+            petWeight: pet!.weight,
           );
         },
         label: Text(
@@ -143,13 +147,18 @@ class _PetDetailScreenState extends State<PetDetailScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      debugPrint('Favorite Button Tapped');
+                      var age = num.parse(
+                          ((DateTime.now()).difference(pet!.birth).inDays / 30)
+                              .toStringAsFixed(0));
+                      buildToast(type: TypeToast.success, title: '$age');
                       cartController.createCartList(
                         petId: pet!.id,
                         petImage: pet!.image,
                         quantity: 1,
                         petName: pet!.name,
                         petPrice: pet!.price,
+                        petAge: age,
+                        petWeight: pet!.weight,
                       );
                     },
                     child: const Icon(
