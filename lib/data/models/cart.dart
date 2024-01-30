@@ -43,10 +43,16 @@ class Cart {
     petWeight = map["petWeight"];
   }
 
-  // Map<String, Object> toJson() => {
-  //       'plant': {
-  //         'plantID': petId,
-  //         'quantity': quantity,
-  //       }
-  //     };
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'petId': petId,
+      'quantity': quantity,
+      'petImage': petImage,
+      'petName': petName,
+      'petPrice': petPrice,
+      'petAge': petAge,
+      'petWeight': petWeight,
+    };
+  }
 }

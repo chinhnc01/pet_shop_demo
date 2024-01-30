@@ -47,38 +47,85 @@ class _CartScreenState extends State<CartScreen> {
               ),
             )
           : SafeArea(
-              child: ListView.separated(
-                padding: const EdgeInsets.all(20),
-                itemBuilder: (context, index) => CartTile(
-                  // item: cartItems[index],
-                  onRemove: () {
-                    // if (cartItems[index].quantity != 1) {
-                    //   setState(() {
-                    //     cartItems[index].quantity--;
-                    //   });
-                    // }
-                  },
-                  onAdd: () {
-                    // setState(() {
-                    //   cartItems[index].quantity++;
-                    // });
-                  },
-                  onDelete: () {
-                    cartController.deleteItem(
-                      emailUser:
-                          cartController.cartList[index]!.email.toString(),
-                      petIdDelete: cartController.cartList[index]!.petId ?? 0,
-                    );
-                  },
-                  name: cartController.cartList[index]!.petName.toString(),
-                  image: cartController.cartList[index]!.petImage.toString(),
-                  price: cartController.cartList[index]!.petPrice.toString(),
-                  weight: cartController.cartList[index]!.petWeight.toString(),
-                  age: cartController.cartList[index]!.petAge.toString(),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(20),
+                      itemBuilder: (context, index) => CartTile(
+                        // item: cartItems[index],
+                        onRemove: () {
+                          // if (cartItems[index].quantity != 1) {
+                          //   setState(() {
+                          //     cartItems[index].quantity--;
+                          //   });
+                          // }
+                        },
+                        onAdd: () {
+                          // setState(() {
+                          //   cartItems[index].quantity++;
+                          // });
+                        },
+                        onDelete: () {
+                          cartController.deleteItem(
+                            emailUser: cartController.cartList[index]!.email
+                                .toString(),
+                            petIdDelete:
+                                cartController.cartList[index]!.petId ?? 0,
+                          );
+                        },
+                        name:
+                            cartController.cartList[index]!.petName.toString(),
+                        image:
+                            cartController.cartList[index]!.petImage.toString(),
+                        price:
+                            cartController.cartList[index]!.petPrice.toString(),
+                        weight: cartController.cartList[index]!.petWeight
+                            .toString(),
+                        age: cartController.cartList[index]!.petAge.toString(),
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 20),
+                      itemCount: cartController.cartList.length,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      child: SizedBox(
+                        width: Get.width * 0.5,
+                        height: Get.height * 0.07,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.bottomSheet(
+                              _showDetailCheckout(
+                                priceTotal: 1200,
+                                quantity: 2,
+                                onTap: () {
+                                  cartController.checkOut();
+                                  Get.back();
+                                },
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(kBlack),
+                          ),
+                          child: textTitleSmall(
+                            text: 'Check out',
+                            color: kBoxShadowColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 20),
-                itemCount: cartController.cartList.length,
               ),
             ),
     );
@@ -188,4 +235,71 @@ class CartTile extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget _showDetailCheckout({
+  required num priceTotal,
+  required num quantity,
+  required Function() onTap,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(32),
+    color: Get.theme.colorScheme.background,
+    height: 300,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyLarge(text: 'Quantity: '),
+                textBodyLarge(
+                  text: quantity.toString(),
+                  color: kOrange,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyLarge(text: 'Total: '),
+                textBodyLarge(
+                  text: '\$ ${priceTotal.toString()}',
+                  color: kOrange,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+          ],
+        ),
+        Container(
+          padding: const EdgeInsets.all(24),
+          child: SizedBox(
+            width: Get.width * 0.5,
+            height: Get.height * 0.07,
+            child: ElevatedButton(
+              onPressed: onTap,
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all<Color>(kBlack),
+              ),
+              child: textTitleSmall(
+                text: 'Check out',
+                color: kBoxShadowColor,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

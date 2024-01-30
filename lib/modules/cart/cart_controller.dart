@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pet_shop/data/db_helper.dart';
@@ -16,12 +20,54 @@ class CartController extends GetxController
 
   GetStorage box = GetStorage();
 
+  CollectionReference bill = FirebaseFirestore.instance.collection('bill');
+
+  final databaseRef = FirebaseDatabase.instanceFor(
+          app: Firebase.app(),
+          databaseURL:
+              'https://pet-shop-demo-48c60-default-rtdb.asia-southeast1.firebasedatabase.app')
+      .ref('bill');
+
   @override
   Future<void> onInit() async {
     await getCartList();
     changeUI();
     updateUI();
     super.onInit();
+  }
+
+  Future<void> checkOut() async {
+    final databaseRefLastId = FirebaseDatabase.instanceFor(
+            app: Firebase.app(),
+            databaseURL:
+                'https://pet-shop-demo-48c60-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref('idLast');
+
+    var idLast = await databaseRefLastId.child('/idLast').get();
+    var billId = int.parse(idLast.value.toString()) + 12;
+
+    // buildToast(type: TypeToast.success, title: jsonEncode(cartList));
+    await databaseRef.child('/$billId').set({
+      'billId': billId,
+      'userEmail': accountController.userEmail,
+      'quantity': cartList.length,
+      'billTotal': cartList.fold<num>(
+          0, (previousValue, element) => previousValue + element!.petPrice!),
+      'list': jsonEncode(cartList),
+      'checkoutTime': DateTime.now().millisecondsSinceEpoch,
+      'status': 'processing',
+    }).then((_) {
+      databaseRefLastId.set({
+        'idLast': billId,
+      });
+      buildToast(type: TypeToast.success, title: 'Checkout Success!!!');
+      deleteAllItem(emailUser: accountController.userEmail);
+    }).catchError(
+      (error) => buildToast(
+        type: TypeToast.failure,
+        title: error.toString(),
+      ),
+    );
   }
 
   Future<List<Cart>> getCartList() async {
@@ -50,7 +96,10 @@ class CartController extends GetxController
       petAge: petAge,
       petWeight: petWeight,
     );
-    if (await dbHelper.checkPetInCart(accountController.userEmail, petId)) {
+    if (await dbHelper.checkPetInCart(
+      accountController.userEmail,
+      petId,
+    )) {
       buildToast(
         type: TypeToast.failure,
         title: 'Pet already in the cart',
@@ -76,6 +125,17 @@ class CartController extends GetxController
       emailUser: emailUser,
       petIdDelete: petIdDelete,
     );
+
+    await getCartList();
+
+    updateUI();
+    changeUI();
+  }
+
+  Future<void> deleteAllItem({
+    required String emailUser,
+  }) async {
+    await dbHelper.deleteAllCartItem(emailUser);
 
     await getCartList();
 

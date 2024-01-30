@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/account/account_controller.dart';
-import 'package:pet_shop/modules/account/account_detail/account_detail_screen.dart';
 import 'package:pet_shop/widgets/base/base.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 import 'package:pet_shop/widgets/widgets.dart';

@@ -120,4 +120,14 @@ class DBHelper {
     }
     return false;
   }
+
+  Future<int?> deleteAllCartItem(String emailUser) async {
+    // xóa employee
+    var dbClient = await database;
+    int? result = 0;
+    result = await dbClient?.delete(tableName, where: '$email = "$emailUser"');
+    getDataCart(email);
+
+    return result;
+  }
 }
