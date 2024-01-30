@@ -14,6 +14,8 @@ import 'package:pet_shop/modules/cart/cart_screen.dart';
 import 'package:pet_shop/modules/dashboard/dashboard_screen.dart';
 import 'package:pet_shop/modules/home/home_binding.dart';
 import 'package:pet_shop/modules/home/home_screen.dart';
+import 'package:pet_shop/modules/order_list/order_list_binding.dart';
+import 'package:pet_shop/modules/order_list/order_list_screen.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_binding.dart';
 import 'package:pet_shop/modules/pet_detail/pet_detail_screen.dart';
 import 'package:pet_shop/modules/splash/splash_screen.dart';
@@ -77,6 +79,12 @@ List<GetPage> routes = [
     name: CartScreen.routeName,
     page: () => const CartScreen(),
     binding: CartBinding(),
+    transition: Transition.fade,
+  ),
+  GetPage(
+    name: OrderListScreen.routeName,
+    page: () => const OrderListScreen(),
+    binding: OrderListBinding(),
     transition: Transition.fade,
   ),
 ];

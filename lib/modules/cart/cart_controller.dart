@@ -45,9 +45,10 @@ class CartController extends GetxController
 
     var idLast = await databaseRefLastId.child('/idLast').get();
     var billId = int.parse(idLast.value.toString()) + 12;
+    var userId = box.read('userId');
 
     // buildToast(type: TypeToast.success, title: jsonEncode(cartList));
-    await databaseRef.child('/$billId').set({
+    await databaseRef.child('/$userId/$billId').set({
       'billId': billId,
       'userEmail': accountController.userEmail,
       'quantity': cartList.length,

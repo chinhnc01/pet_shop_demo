@@ -48,6 +48,8 @@ class LoginController extends GetxController
 
       await box.write('userEmail', user!.email);
       await box.write('userName', user.displayName);
+      await box.write('userId', user.uid);
+      // await box.write('userPhone', user.phoneNumber);
 
       buildToast(
         type: TypeToast.success,

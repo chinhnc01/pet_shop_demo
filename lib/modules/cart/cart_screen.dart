@@ -99,8 +99,12 @@ class _CartScreenState extends State<CartScreen> {
                           onPressed: () {
                             Get.bottomSheet(
                               _showDetailCheckout(
-                                priceTotal: 1200,
-                                quantity: 2,
+                                quantity: cartController.cartList.length,
+                                priceTotal: cartController.cartList.fold<num>(
+                                  0,
+                                  (previousValue, element) =>
+                                      previousValue + element!.petPrice!,
+                                ),
                                 onTap: () {
                                   cartController.checkOut();
                                   Get.back();
@@ -280,7 +284,7 @@ Widget _showDetailCheckout({
         Container(
           padding: const EdgeInsets.all(24),
           child: SizedBox(
-            width: Get.width * 0.5,
+            width: Get.width * 0.7,
             height: Get.height * 0.07,
             child: ElevatedButton(
               onPressed: onTap,
@@ -293,7 +297,7 @@ Widget _showDetailCheckout({
                 backgroundColor: MaterialStateProperty.all<Color>(kBlack),
               ),
               child: textTitleSmall(
-                text: 'Check out',
+                text: 'Order',
                 color: kBoxShadowColor,
               ),
             ),

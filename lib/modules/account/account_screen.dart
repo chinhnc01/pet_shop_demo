@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/account/account_controller.dart';
+import 'package:pet_shop/modules/order_list/order_list_screen.dart';
 import 'package:pet_shop/widgets/base/base.dart';
+import 'package:pet_shop/widgets/share_function/share_funciton.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 import 'package:pet_shop/widgets/widgets.dart';
 
@@ -84,6 +87,39 @@ class _AccountScreenState extends State<AccountScreen> {
               //     ),
               //   ),
               // ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: textBodyLarge(
+                    text: 'Order list',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Row(children: [
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(OrderListScreen.routeName);
+                      debugPrint(accountController.userId);
+                      buildToast(
+                        type: TypeToast.success,
+                        title: accountController.userId,
+                      );
+                    },
+                    child: const Icon(
+                      LucideIcons.scrollText,
+                      color: kOrange,
+                      size: 52,
+                    ),
+                  ),
+                ]),
+              ),
               Container(
                 //height: 370,
                 width: Get.width,

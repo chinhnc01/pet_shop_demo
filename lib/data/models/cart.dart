@@ -32,6 +32,17 @@ class Cart {
     return map;
   }
 
+  Cart.fromJson(Map<String, dynamic> json) {
+    email = json['email'];
+    petId = json['petId'];
+    quantity = json['quantity'];
+    petImage = json['petImage'];
+    petName = json['petName'];
+    petPrice = json['petPrice'];
+    petAge = json['petAge'];
+    petWeight = json['petWeight'];
+  }
+
   Cart.fromMap(Map<String, dynamic> map) {
     email = map["email"];
     petId = map["petId"];
@@ -44,15 +55,17 @@ class Cart {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'petId': petId,
-      'quantity': quantity,
-      'petImage': petImage,
-      'petName': petName,
-      'petPrice': petPrice,
-      'petAge': petAge,
-      'petWeight': petWeight,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['email'] = email;
+    data['petId'] = petId;
+    data['quantity'] = quantity;
+    data['petImage'] = petImage;
+    data['petName'] = petName;
+    data['petPrice'] = petPrice;
+    data['petAge'] = petAge;
+    data['petWeight'] = petWeight;
+    return data;
   }
+
+  toList() {}
 }

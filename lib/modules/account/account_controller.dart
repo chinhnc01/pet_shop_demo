@@ -8,7 +8,7 @@ import 'package:pet_shop/modules/splash/splash_screen.dart';
 class AccountController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
   int selectItemScreen = 0;
-  late String userEmail, userName;
+  late String userEmail, userName, userId;
   GetStorage box = GetStorage();
   final auth = FirebaseAuth.instance;
 
@@ -22,6 +22,7 @@ class AccountController extends GetxController
   getDataUser() async {
     userEmail = box.read('userEmail');
     userName = box.read('userName');
+    userId = box.read('userId');
   }
 
   Future<void> logOut() async {
