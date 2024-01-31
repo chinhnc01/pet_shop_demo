@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pet_shop/data/models/bill.dart';
+import 'package:pet_shop/data/models/cart.dart';
 
 class OrderListController extends GetxController
     with GetTickerProviderStateMixin, StateMixin {
@@ -16,6 +18,7 @@ class OrderListController extends GetxController
   GetStorage box = GetStorage();
 
   List<Bill?> billList = [];
+  List<Cart?> cartList = [];
 
   @override
   Future<void> onInit() async {
@@ -43,10 +46,19 @@ class OrderListController extends GetxController
 
     map.forEach((key, value) {
       billList.add(Bill.fromJson(value));
+      debugPrint(Bill.fromJson(value).list.toString());
     });
 
     changeUI();
     updateUI();
+  }
+
+  Future<List<Cart>> getCartListByBillId(String jsonListString) async {
+    List<Cart> cartListByBill = (json.decode(jsonListString) as List)
+        .map((userJson) => Cart.fromJson(userJson))
+        .toList();
+
+    return cartListByBill;
   }
 
   changeUI() {

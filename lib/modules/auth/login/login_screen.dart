@@ -36,143 +36,149 @@ class _LoginScreenState extends State<LoginScreen> {
       (state) => SafeArea(
         child: Form(
           key: keyForm1,
-          child: Container(
-            height: Get.height,
-            margin: alignment_20_0(),
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 4 * 20,
-                      ),
-                      textHeadlineLarge(
-                        text: 'Login',
-                        fontWeight: FontWeight.w700,
-                        color: kGrey,
-                      ),
-                      const SizedBox(
-                        height: 4 * 1,
-                      ),
-                      textBodySmall(
-                        text: 'Login to start using the app',
-                        color: kGrey.withOpacity(0.7),
-                      ),
-                      const SizedBox(
-                        height: 4 * 16,
-                      ),
-                      TextFormField(
-                        onTap: () {},
-                        controller: loginController.emailTE,
-                        style: mulish(fontSize: 16),
-                        keyboardType: TextInputType.emailAddress,
-                        maxLines: 1,
-                        validator: loginController.validateEmail,
-                        decoration: textFieldInputStyle(
-                          label: 'Email',
+          child: SingleChildScrollView(
+            child: Container(
+              height: Get.height,
+              margin: alignment_20_0(),
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 4 * 20,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                      TextFormField(
-                        onTap: () {},
-                        controller: loginController.passTE,
-                        obscureText: passwordVisible,
-                        style: mulish(fontSize: 16),
-                        validator: loginController.validateString,
-                        decoration: textFieldInputStyle(
-                          label: 'Password',
-                          suffixIcon: InkWell(
+                        textHeadlineLarge(
+                          text: 'Login',
+                          fontWeight: FontWeight.w700,
+                          color: kGrey,
+                        ),
+                        const SizedBox(
+                          height: 4 * 1,
+                        ),
+                        textBodySmall(
+                          text: 'Login to start using the app',
+                          color: kGrey.withOpacity(0.7),
+                        ),
+                        const SizedBox(
+                          height: 4 * 16,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          controller: loginController.emailTE,
+                          style: mulish(fontSize: 16),
+                          keyboardType: TextInputType.emailAddress,
+                          maxLines: 1,
+                          validator: loginController.validateEmail,
+                          decoration: textFieldInputStyle(
+                            label: 'Email',
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4 * 6,
+                        ),
+                        TextFormField(
+                          onTap: () {},
+                          controller: loginController.passTE,
+                          obscureText: passwordVisible,
+                          style: mulish(fontSize: 16),
+                          validator: loginController.validateString,
+                          decoration: textFieldInputStyle(
+                            label: 'Password',
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                              child: Ink(
+                                child: Icon(
+                                  passwordVisible
+                                      ? LucideIcons.eye
+                                      : LucideIcons.eyeOff,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: Get.width * 0.5,
+                            height: Get.height * 0.07,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(kBlack),
+                              ),
+                              child: textTitleSmall(
+                                text: 'Login',
+                                color: kBoxShadowColor,
+                              ),
+                              onPressed: () {
+                                if (keyForm1.currentState?.validate() ??
+                                    false) {
+                                  loginController.signInUsingEmailPassword(
+                                    email: loginController.emailTE.text,
+                                    password: loginController.passTE.text,
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4 * 6,
+                          ),
+                          InkWell(
                             onTap: () {
-                              setState(
-                                () {
-                                  passwordVisible = !passwordVisible;
-                                },
-                              );
+                              Get.toNamed(SignupScreen.routeName);
                             },
-                            child: Ink(
-                              child: Icon(
-                                passwordVisible
-                                    ? LucideIcons.eye
-                                    : LucideIcons.eyeOff,
-                              ),
+                            child: Row(
+                              children: [
+                                textBodyMedium(
+                                  text: 'Don\'t have account? ',
+                                  color: kLightGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textBodyMedium(
+                                  text: 'Sign up ',
+                                  color: kOrange,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textBodyMedium(
+                                  text: 'now',
+                                  color: kLightGrey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ],
                             ),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 4 * 6,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: Get.width * 0.5,
-                        height: Get.height * 0.07,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(kBlack),
-                          ),
-                          child: textTitleSmall(
-                            text: 'Login',
-                            color: kBoxShadowColor,
-                          ),
-                          onPressed: () {
-                            if (keyForm1.currentState?.validate() ?? false) {
-                              loginController.signInUsingEmailPassword(
-                                email: loginController.emailTE.text,
-                                password: loginController.passTE.text,
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(SignupScreen.routeName);
-                        },
-                        child: Row(
-                          children: [
-                            textBodyMedium(
-                              text: 'Don\'t have account? ',
-                              color: kLightGrey,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            textBodyMedium(
-                              text: 'Sign up ',
-                              color: kOrange,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            textBodyMedium(
-                              text: 'now',
-                              color: kLightGrey,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4 * 6,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

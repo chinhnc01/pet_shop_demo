@@ -5,6 +5,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pet_shop/app_styles.dart';
 import 'package:pet_shop/modules/order_list/order_list_controller.dart';
 import 'package:pet_shop/widgets/base/base.dart';
+import 'package:pet_shop/widgets/share_function/share_funciton.dart';
 import 'package:pet_shop/widgets/text_custom.dart';
 import 'package:pet_shop/widgets/widgets.dart';
 
@@ -57,19 +58,25 @@ class _OrderListScreenState extends State<OrderListScreen> {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 12),
                 itemBuilder: (context, index) => orderTicket(
-                  name: orderListController.billList[index]!.userEmail ?? '',
-                  orderId:
-                      orderListController.billList[index]!.billId.toString(),
-                  quantity: orderListController.billList[index]!.quantity ?? 0,
-                  totalPrice:
-                      orderListController.billList[index]!.billTotal ?? 0,
-                  orderTime: DateFormat('HH:mm dd/MM/yyyy').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                      orderListController.billList[index]!.checkoutTime ?? 0,
+                    name: orderListController.billList[index]!.userEmail ?? '',
+                    orderId:
+                        orderListController.billList[index]!.billId.toString(),
+                    quantity:
+                        orderListController.billList[index]!.quantity ?? 0,
+                    totalPrice:
+                        orderListController.billList[index]!.billTotal ?? 0,
+                    orderTime: DateFormat('HH:mm dd/MM/yyyy').format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                        orderListController.billList[index]!.checkoutTime ?? 0,
+                      ),
                     ),
-                  ),
-                  status: orderListController.billList[index]!.status ?? '',
-                ),
+                    status: orderListController.billList[index]!.status ?? '',
+                    onTap: () {
+                      buildToast(
+                        type: TypeToast.success,
+                        title: (orderListController.billList[index]).toString(),
+                      );
+                    }),
               )
             ],
           ),
@@ -85,100 +92,104 @@ class _OrderListScreenState extends State<OrderListScreen> {
     required num quantity,
     required String orderTime,
     required String status,
+    required Function() onTap,
   }) {
-    return Container(
-      margin: const EdgeInsets.all(24),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(.5),
-            offset: const Offset(3, 2),
-            blurRadius: 7,
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Order Id:'),
-              textBodyMedium(
-                text: '#$orderId',
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Orderer\'s email:'),
-              textBodyMedium(
-                text: name,
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Quantity:'),
-              textBodyMedium(
-                text: '$quantity',
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Order time:'),
-              textBodyMedium(
-                text: orderTime,
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Total price:'),
-              textBodyMedium(
-                text: '\$ $totalPrice',
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              textBodyMedium(text: 'Sattus:'),
-              textBodyMedium(
-                text: status,
-                color: kOrange,
-                fontWeight: FontWeight.w800,
-              ),
-            ],
-          ),
-          const Divider(
-            height: 32,
-          ),
-          // orderIem(
-          //   image:
-          //       'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_kids_avatar_icon_149311.png',
-          //   name: 'Adu',
-          //   price: 120,
-          //   quantity: 1,
-          // ),
-        ],
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(.5),
+              offset: const Offset(3, 2),
+              blurRadius: 7,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Order Id:'),
+                textBodyMedium(
+                  text: '#$orderId',
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Orderer\'s email:'),
+                textBodyMedium(
+                  text: name,
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Quantity:'),
+                textBodyMedium(
+                  text: '$quantity',
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Order time:'),
+                textBodyMedium(
+                  text: orderTime,
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Total price:'),
+                textBodyMedium(
+                  text: '\$ $totalPrice',
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                textBodyMedium(text: 'Sattus:'),
+                textBodyMedium(
+                  text: status,
+                  color: kOrange,
+                  fontWeight: FontWeight.w800,
+                ),
+              ],
+            ),
+            const Divider(
+              height: 32,
+            ),
+            // orderIem(
+            //   image:
+            //       'https://cdn.icon-icons.com/icons2/2468/PNG/512/user_kids_avatar_icon_149311.png',
+            //   name: 'Adu',
+            //   price: 120,
+            //   quantity: 1,
+            // ),
+          ],
+        ),
       ),
     );
   }

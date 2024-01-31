@@ -37,14 +37,15 @@ class CartController extends GetxController
   }
 
   Future<void> checkOut() async {
-    final databaseRefLastId = FirebaseDatabase.instanceFor(
-            app: Firebase.app(),
-            databaseURL:
-                'https://pet-shop-demo-48c60-default-rtdb.asia-southeast1.firebasedatabase.app')
-        .ref('idLast');
+    // final databaseRefLastId = FirebaseDatabase.instanceFor(
+    //         app: Firebase.app(),
+    //         databaseURL:
+    //             'https://pet-shop-demo-48c60-default-rtdb.asia-southeast1.firebasedatabase.app')
+    //     .ref('idLast');
 
-    var idLast = await databaseRefLastId.child('/idLast').get();
-    var billId = int.parse(idLast.value.toString()) + 12;
+    // var idLast = await databaseRefLastId.child('/idLast').get();
+    // var billId = int.parse(idLast.value.toString()) + 12;
+    var billId = DateTime.now().millisecondsSinceEpoch;
     var userId = box.read('userId');
 
     // buildToast(type: TypeToast.success, title: jsonEncode(cartList));
@@ -58,9 +59,9 @@ class CartController extends GetxController
       'checkoutTime': DateTime.now().millisecondsSinceEpoch,
       'status': 'processing',
     }).then((_) {
-      databaseRefLastId.set({
-        'idLast': billId,
-      });
+      // databaseRefLastId.set({
+      //   'idLast': billId,
+      // });
       buildToast(type: TypeToast.success, title: 'Checkout Success!!!');
       deleteAllItem(emailUser: accountController.userEmail);
     }).catchError(

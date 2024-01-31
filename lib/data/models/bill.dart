@@ -4,7 +4,7 @@ class Bill {
   int? billId;
   int? billTotal;
   int? checkoutTime;
-  Cart? list;
+  List<Cart>? list;
   int? quantity;
   String? status;
   String? userEmail;
@@ -51,18 +51,18 @@ class Bill {
     userEmail = map["userEmail"];
   }
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['billId'] = billId;
-    data['billTotal'] = billTotal;
-    data['checkoutTime'] = checkoutTime;
-    if (list != null) {
-      data['list'] = list!.toJson();
-    }
-    data['quantity'] = quantity;
-    data['status'] = status;
-    data['userEmail'] = userEmail;
+  // Map<String, dynamic> toJson() {
+  //   final data = <String, dynamic>{};
+  //   data['billId'] = billId;
+  //   data['billTotal'] = billTotal;
+  //   data['checkoutTime'] = checkoutTime;
+  //   if (list != null) {
+  //     data['list'] = list!.toJson();
+  //   }
+  //   data['quantity'] = quantity;
+  //   data['status'] = status;
+  //   data['userEmail'] = userEmail;
 
-    return data;
-  }
+  //   return data;
+  // }
 }
