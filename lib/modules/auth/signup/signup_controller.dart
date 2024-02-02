@@ -41,7 +41,7 @@ class SignupController extends GetxController
       await user.reload();
       user = auth.currentUser;
       // buildToast(type: TypeToast.success, title: user.toString());
-      buildToast(type: TypeToast.success, title: user!.email.toString());
+      buildToast(type: TypeToast.success, title: 'Sign up success');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         debugPrint('The password provided is too weak.');

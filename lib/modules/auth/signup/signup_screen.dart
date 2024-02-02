@@ -22,6 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
   GlobalKey<FormState> keyForm1 = GlobalKey<FormState>(debugLabel: '_FormL1');
   int selectedIndex = 0;
   bool passwordVisible = true;
+  bool repasswordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         TextFormField(
                           onTap: () {},
                           controller: signupController.repassTE,
-                          obscureText: passwordVisible,
+                          obscureText: repasswordVisible,
                           style: mulish(fontSize: 16),
                           decoration: textFieldInputStyle(
                             label: 'Confirm password',
@@ -135,13 +136,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               onTap: () {
                                 setState(
                                   () {
-                                    passwordVisible = !passwordVisible;
+                                    repasswordVisible = !repasswordVisible;
                                   },
                                 );
                               },
                               child: Ink(
                                 child: Icon(
-                                  passwordVisible
+                                  repasswordVisible
                                       ? LucideIcons.eye
                                       : LucideIcons.eyeOff,
                                 ),

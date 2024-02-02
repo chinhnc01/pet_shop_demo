@@ -1,10 +1,8 @@
-import 'package:pet_shop/data/models/cart.dart';
-
 class Bill {
   int? billId;
   int? billTotal;
   int? checkoutTime;
-  List<Cart>? list;
+  List<dynamic>? list;
   int? quantity;
   String? status;
   String? userEmail;
@@ -35,7 +33,13 @@ class Bill {
     billId = json['billId'];
     billTotal = json['billTotal'];
     checkoutTime = json['checkoutTime'];
-    list != null ? Bill.fromJson(json['list']) : null;
+    // list != null ? Bill.fromJson(json['list']) : null;
+    if (json['\$list'] != null) {
+      list = <Null>[];
+      json['\$list'].forEach((v) {
+        list!.add(v);
+      });
+    }
     quantity = json['quantity'];
     status = json['status'];
     userEmail = json['userEmail'];

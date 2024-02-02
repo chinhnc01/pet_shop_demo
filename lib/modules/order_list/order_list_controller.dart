@@ -46,7 +46,7 @@ class OrderListController extends GetxController
 
     map.forEach((key, value) {
       billList.add(Bill.fromJson(value));
-      debugPrint(Bill.fromJson(value).list.toString());
+      // debugPrint(Bill.fromJson(value).list.toString());
     });
 
     changeUI();
